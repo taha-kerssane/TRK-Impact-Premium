@@ -2,7 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: #fdfdfd;
+:root{
+  --ink:#0f172a;
+  --line:#e5e7eb;
+  --gold:#c6a972;
 }
+
+body { @apply bg-white text-slate-800; }
+
+.texture{
+  background-image: radial-gradient(ellipse at top, rgba(198,169,114,.06), transparent 60%),
+                    radial-gradient(ellipse at bottom, rgba(15,23,42,.04), transparent 60%);
+}
+
+/* Boutons */
+.btn{ @apply inline-flex items-center justify-center rounded-xl px-4 py-2 font-semibold transition; }
+.btn-primary{ @apply bg-[var(--ink)] text-white hover:opacity-90; }
+.btn-outline{ @apply border border-[var(--ink)] text-[var(--ink)] hover:bg-slate-50; }
+.btn-contour{ @apply border border-slate-300 text-slate-700 hover:bg-slate-50; }
+
+/* Cards */
+.card{ @apply rounded-2xl border border-[var(--line)] bg-white p-4 shadow-sm; }
+
+/* RTL helper */
+.rtl{ direction: rtl; }
