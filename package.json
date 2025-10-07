@@ -19,3 +19,7 @@
     "autoprefixer": "^10.4.20"
   }
 }
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
+}
