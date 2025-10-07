@@ -187,17 +187,20 @@ export default function App(){
           </div>
 
           <div className="mt-4 flex gap-3 flex-wrap">
-            <a
-              id="dealDeckBtn"
-              className="btn btn-primary"
-              href="/actifs/DealDeck-TRK-Impact.pdf"
-              download
-              type="application/pdf"
-              rel="noopener"
-              onClick={trackPdfClick}
-            >
-              📄 Télécharger le Deal Deck (PDF)
-            </a>
+           <a
+  id="dealDeckBtn"
+  className="btn btn-primary"
+  href="/actifs/DealDeck-TRK-Impact.pdf"
+  download
+  type="application/pdf"
+  rel="noopener"
+  onClick={()=>{
+    try{ gtag('event','deal_deck_download') }catch(e){}
+    try{ fbq('trackCustom','DealDeckDownload') }catch(e){}
+  }}
+>
+  📄 Télécharger le Deal Deck (PDF)
+</a>
 
             <a className="btn btn-contour" href="#contact">
               Être rappelé
