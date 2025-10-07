@@ -222,7 +222,7 @@ export default function App(){
           <div className="card">
             <h3 className="font-bold mb-2">{t.directTitle}</h3>
             <div className="flex gap-3 items-center">
-              <img src="/actifs/whatsapp-qr.jpg" alt="QR WhatsApp Taha" className="w-[120px] h-[120px] rounded-xl border"/>
+<img src="/actifs/whatsapp-qr.png" alt="QR WhatsApp Taha" className="w-[120px] h-[120px] rounded-xl border"/>
               <div>
                 <div className="font-extrabold">Taha Kerssane</div>
                 <div className="text-sm text-slate-600">{t.role}</div>
