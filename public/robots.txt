@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://trk-impact-premium.vercel.app/sitemap.xml
