@@ -1,0 +1,62 @@
+{
+  "fr": {
+    "brand": "TRK Impact — Tanger",
+    "kicker": "Gestion locative premium",
+    "heroTitle": "Agence immobilière haut de gamme à Tanger",
+    "heroSub": "Loyer fixe garanti, exploitation courte durée optimisée, et expérience 5★ — sans aucun effort pour vous.",
+    "ctaOwner": "Je suis propriétaire",
+    "ownersTitle": "Services propriétaires & investisseurs",
+    "features": [
+      [
+        "Loyer fixe garanti",
+        "Pacte de rendement : revenus mensuels stables, zéro vacance."
+      ],
+      [
+        "Exploitation courte durée",
+        "Pricing dynamique, shooting pro, annonces optimisées."
+      ],
+      [
+        "Gestion 100% clé-en-main",
+        "Check-in/out, ménage hôtelier, maintenance, linge."
+      ],
+      [
+        "Conformité & assurance",
+        "Baux/avenants, règlement de copro, assurance RC."
+      ]
+    ],
+    "investTitle": "Investisseurs — Rendement & sécurité",
+    "investCards": [
+      [
+        "Modèle de revenus",
+        "• Contrat à loyer fixe garanti<br>• Option indexation ou partage de performance<br>• Durée souple (12–36 mois)"
+      ],
+      [
+        "Performance cible",
+        "• ADR ≈ 1 400 MAD • Occupation ≈ 55%<br>• Brut ≈ 23 100 MAD<br>• Marge nette ≈ 8 000 MAD"
+      ],
+      [
+        "Gestion du risque",
+        "• Assurance, conformité copro, check-in autonome<br>• Standards ménage hôtelier & maintenance"
+      ],
+      [
+        "Onboarding express",
+        "• Audit (48h) • Shooting HDR<br>• Mise en ligne optimisée (Airbnb/Booking)"
+      ]
+    ],
+    "pilotTitle": "Pilote — Résidence Tasnim (TASNIM 01)",
+    "pilotBullets": [
+      "F4 • 150 m² • centre-ville • parking • fibre • check-in autonome",
+      "ADR cible : 1 400 MAD • Occupation cible : 55 %",
+      "Revenus bruts ~23 100 MAD • Marge nette ~8 000 MAD • Break-even ~7 nuits"
+    ],
+    "directTitle": "Contact direct",
+    "role": "Chargé de location appartement",
+    "ctaWhats": "Parler sur WhatsApp",
+    "ctaContact": "Nous contacter",
+    "ctaWhats2": "WhatsApp direct",
+    "contactTitle": "Parlons de votre bien",
+    "contactSub": "Exploitons son plein potentiel dès ce mois-ci. Réponse rapide.",
+    "contactWhatsApp": "WhatsApp direct",
+    "footer": "© TRK Impact — Gestion locative premium à Tanger"
+  }
+}
