@@ -1,0 +1,22 @@
+TRK-Impact-Premium/
+│
+├── public/
+│   ├── assets/
+│   │   ├── DealDeck-TRK-Impact.pdf
+│   │   ├── taha.jpg
+│   │   └── whatsapp-qr.jpg
+│   ├── robots.txt
+│   └── sitemap.xml
+│
+├── src/
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── i18n.json
+│
+├── postcss.config.js
+├── tailwind.config.js
+├── vite.config.js
+├── vercel.json
+├── package.json
+├── README.md
+└── index.html
