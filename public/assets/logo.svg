@@ -1,0 +1,30 @@
+<!-- TRK Impact — Logo horizontal (fond transparent) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 200" role="img" aria-labelledby="title desc">
+  <title id="title">TRK Impact — Gestion locative premium à Tanger</title>
+  <desc id="desc">Logo horizontal noir & doré, fond transparent</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1f2937"/>
+    </linearGradient>
+    <style>
+      .ink{ fill:#0f172a }
+      .gold{ fill:#c6a972 }
+      .title{ font: 800 52px/1.05 Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif }
+      .tag  { font: 500 20px/1.25 Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; letter-spacing:.02em }
+      .mono { font: 900 30px/1 Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif }
+    </style>
+  </defs>
+
+  <!-- Emblème -->
+  <g transform="translate(20,20)">
+    <rect x="0" y="0" width="120" height="120" rx="24" fill="url(#g)"/>
+    <text x="60" y="78" text-anchor="middle" class="mono" fill="#fff">TRK</text>
+  </g>
+
+  <!-- Titre + Tagline -->
+  <g transform="translate(170,60)">
+    <text class="title ink">TRK Impact — Tangier</text>
+    <text class="tag gold" y="52">Gestion locative premium — Tanger</text>
+  </g>
+</svg>
