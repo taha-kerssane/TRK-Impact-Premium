@@ -1,252 +1,334 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import TestimonialsCarousel from "./components/TestimonialsCarousel.jsx";
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import TestimonialsCarousel from './components/TestimonialsCarousel.jsx';
 
-const DEAL_DECK_PDF = "/TRK-DealDeck.pdf";
-const HOMEPAGE_MOCKUP_IMG = "/assets/mockup-3d-home.webp";
-const WHATSAPP_FR = "https://wa.me/33651259462?text=Bonjour%20Taha%2C%20je%20souhaite%20%C3%A9changer%20au%20sujet%20de%20TRK%20Impact%20Premium%20%F0%9F%87%AB%F0%9F%87%B7";
-const WHATSAPP_MA = "https://wa.me/212771348429?text=Salam%20Taha%2C%20je%20souhaite%20plus%20d%E2%80%99infos%20sur%20TRK%20Impact%20Premium%20%F0%9F%87%B2%F0%9F%87%A6";
+// ========================
+// Liens et constantes
+// ========================
+const DEAL_DECK_PDF = '/TRK-DealDeck.pdf';
+const HOMEPAGE_MOCKUP_IMG = '/assets/mockup-3d-home.webp';
+const WHATSAPP_FR = 'https://wa.me/33619642559';
+const WHATSAPP_MA = 'https://wa.me/212722584276';
+const CALENDBOOK_LINK = 'https://www.calendbook.com/tahakerssane/rendezvousdécouverte15min';
 
+// ========================
+// i18n dictionnaire
+// ========================
 const dict = {
   fr: {
-    brand: "TRK Impact Premium",
-    tagline: "Image premium. Vitesse. Conversion.",
-    cta: "Télécharger le Deal Deck",
-    featuresTitle: "Pourquoi TRK Impact ?",
-    features: [
-      "Interface multilingue FR/EN/AR",
-      "Mode sombre / clair",
-      "Carrousel de témoignages auto-défilant",
-      "Animations fluides section par section",
-      "Tracking GA4 + Meta Pixel",
-      "Déploiement GitHub + Vercel",
-    ],
-    testimonialsTitle: "Témoignages",
-    mockupTitle: "Aperçu",
-    bioTitle: "À propos de Taha Kerssane",
-    bio:
-      "Closer & entrepreneur, j'accompagne les marques ambitieuses à lancer des sites premium orientés conversion (funnel clair, analytics, créas soignées). Objectif : crédibilité, leads qualifiés et ROI.",
-    footer: "© " + new Date().getFullYear() + " TRK Impact — Tous droits réservés.",
-    langLabel: "Langue",
-    themeLight: "Clair",
-    themeDark: "Sombre",
-    menuWhatsApp: "WhatsApp",
-    frShort: "FR",
-    maShort: "MA",
+    brand: 'TRK Impact Premium',
+    tagline: 'Gestion locative clé en main pour propriétaires exigeants.',
+    subtagline: 'Nous optimisons vos revenus via Airbnb, Booking et Abritel.',
+    ctaDeck: '📥 Télécharger le Deal Deck',
+    ctaCall: '📅 Prendre rendez-vous',
+    featuresTitle: 'Nos plateformes partenaires',
+    bioTitle: 'À propos de Taha Kerssane',
+    bio: "Expert en gestion locative et optimisation de rentabilité. J’accompagne les propriétaires à maximiser leurs revenus via Airbnb, Booking et Abritel, grâce à une gestion complète, transparente et premium.",
+    testimonialsTitle: 'Témoignages clients',
+    footer: '© ' + new Date().getFullYear() + ' TRK Impact Premium — Tous droits réservés.',
+    themeLight: 'Clair',
+    themeDark: 'Sombre',
   },
   en: {
-    brand: "TRK Impact Premium",
-    tagline: "Premium look. Speed. Conversion.",
-    cta: "Download Deal Deck",
-    featuresTitle: "Why TRK Impact?",
-    features: [
-      "Multilingual FR/EN/AR",
-      "Light / Dark mode",
-      "Auto-scrolling testimonials",
-      "Smooth section animations",
-      "GA4 + Meta Pixel tracking",
-      "GitHub + Vercel deployment",
-    ],
-    testimonialsTitle: "Testimonials",
-    mockupTitle: "Preview",
-    bioTitle: "About Taha Kerssane",
-    bio:
-      "Closer & entrepreneur helping ambitious brands launch premium, conversion-focused websites (clear funnel, analytics, polished creatives). Goal: credibility, qualified leads & ROI.",
-    footer: "© " + new Date().getFullYear() + " TRK Impact — All rights reserved.",
-    langLabel: "Language",
-    themeLight: "Light",
-    themeDark: "Dark",
-    menuWhatsApp: "WhatsApp",
-    frShort: "FR",
-    maShort: "MA",
+    brand: 'TRK Impact Premium',
+    tagline: 'Turnkey property management for demanding owners.',
+    subtagline: 'We optimize your rental income through Airbnb, Booking, and Abritel.',
+    ctaDeck: '📥 Download Deal Deck',
+    ctaCall: '📅 Book a call',
+    featuresTitle: 'Partner Platforms',
+    bioTitle: 'About Taha Kerssane',
+    bio: 'Expert in rental management and ROI optimization. I help property owners maximize their earnings via Airbnb, Booking, and Abritel through a transparent, all-inclusive, premium service.',
+    testimonialsTitle: 'Client Testimonials',
+    footer: '© ' + new Date().getFullYear() + ' TRK Impact Premium — All rights reserved.',
+    themeLight: 'Light',
+    themeDark: 'Dark',
   },
   ar: {
-    brand: "TRK Impact Premium",
-    tagline: "هوية فاخرة. سرعة. تحويل.",
-    cta: "تحميل ملف العرض (Deal Deck)",
-    featuresTitle: "لماذا TRK Impact؟",
-    features: [
-      "واجهة متعددة اللغات FR/EN/AR",
-      "وضع فاتح / داكن",
-      "شهادات عملاء بتمرير تلقائي",
-      "حركات سلسة لكل قسم",
-      "تتبّع GA4 + Meta Pixel",
-      "إطلاق عبر GitHub + Vercel",
-    ],
-    testimonialsTitle: "آراء العملاء",
-    mockupTitle: "معاينة",
-    bioTitle: "نبذة عن طه كرسّان",
-    bio:
-      "Closer ورائد أعمال يساعد العلامات الطموحة على إطلاق مواقع فاخرة تركز على التحويل (قُمع واضح، تحليلات، تصاميم احترافية). الهدف: المصداقية والعملاء المؤهلون والعائد.",
-    footer: "© " + new Date().getFullYear() + " TRK Impact — جميع الحقوق محفوظة.",
-    langLabel: "اللغة",
-    themeLight: "فاتح",
-    themeDark: "داكن",
-    menuWhatsApp: "واتساب",
-    frShort: "فرنسا",
-    maShort: "المغرب",
+    brand: 'TRK Impact Premium',
+    tagline: 'إدارة عقارية متكاملة للمالكين المميزين.',
+    subtagline: 'نزيد من عائداتك عبر Airbnb وBooking وAbritel.',
+    ctaDeck: '📥 تحميل عرض Deal Deck',
+    ctaCall: '📅 حجز موعد',
+    featuresTitle: 'المنصات الشريكة',
+    bioTitle: 'حول طه كرسّان',
+    bio: 'خبير في إدارة الإيجار وتحسين الأرباح. أساعد الملاك على زيادة دخلهم من خلال إدارة متكاملة وشفافة وفاخرة.',
+    testimonialsTitle: 'آراء العملاء',
+    footer: '© ' + new Date().getFullYear() + ' TRK Impact Premium — جميع الحقوق محفوظة.',
+    themeLight: 'فاتح',
+    themeDark: 'داكن',
   },
 };
 
-const track = {
-  ga4(name, params = {}) { try { if (typeof window.gtag === "function") window.gtag("event", name, params); } catch {} },
-  fb(event, params = {}, { standard = false } = {}) {
-    try {
-      if (typeof window.fbq === "function") { standard ? window.fbq("track", event, params) : window.fbq("trackCustom", event, params); }
-    } catch {}
-  },
-  both({ gaEvent, gaParams, fbEvent, fbParams, fbStandard = false }) {
-    track.ga4(gaEvent, gaParams); track.fb(fbEvent, fbParams, { standard: fbStandard });
-  },
-};
-
+// ========================
+// Hooks utilitaires
+// ========================
 const getInitialLang = () => {
-  const saved = localStorage.getItem("trk_lang");
+  const saved = localStorage.getItem('trk_lang');
   if (saved) return saved;
-  const nav = navigator.language?.toLowerCase() || "fr";
-  if (nav.startsWith("ar")) return "ar";
-  if (nav.startsWith("en")) return "en";
-  return "fr";
+  const nav = navigator.language?.toLowerCase() || 'fr';
+  if (nav.startsWith('ar')) return 'ar';
+  if (nav.startsWith('en')) return 'en';
+  return 'fr';
 };
-
+const getInitialTheme = () => {
+  const saved = localStorage.getItem('trk_theme');
+  if (saved === 'dark' || saved === 'light') return saved;
+  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+  return prefersDark ? 'dark' : 'light';
+};
 const useFadeIn = () => {
   const ref = useRef(null);
   useEffect(() => {
-    const el = ref.current; if (!el) return;
-    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
-      if (e.isIntersecting) { e.target.classList.add("fade-in-visible"); io.unobserve(e.target); }
-    }), { threshold: 0.2 });
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('fade-in-visible');
+            io.unobserve(e.target);
+          }
+        }),
+      { threshold: 0.2 }
+    );
     el.querySelectorAll('[data-animate="fade"]').forEach((n) => io.observe(n));
     return () => io.disconnect();
   }, []);
   return ref;
 };
 
+// ========================
+// App principale
+// ========================
 export default function App() {
   const [lang, setLang] = useState(getInitialLang);
-  const [theme, setTheme] = useState("dark");
-  const isRtl = lang === "ar";
+  const [theme, setTheme] = useState(getInitialTheme);
   const t = useMemo(() => dict[lang] || dict.fr, [lang]);
+  const isRtl = lang === 'ar';
   const animRootRef = useFadeIn();
   const [waOpen, setWaOpen] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("trk_lang", lang);
-    document.documentElement.setAttribute("lang", lang);
-    document.documentElement.setAttribute("dir", isRtl ? "rtl" : "ltr");
+    localStorage.setItem('trk_lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
   }, [lang, isRtl]);
 
+  useEffect(() => {
+    localStorage.setItem('trk_theme', theme);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }, [theme]);
+
   return (
-    <>
+    <div
+      className="min-h-screen"
+      style={{
+        background:
+          theme === 'dark'
+            ? 'linear-gradient(180deg,#0b0b0b 0%,#121212 100%)'
+            : 'linear-gradient(180deg,#fafafa 0%,#ffffff 100%)',
+        color: theme === 'dark' ? '#f5f5f5' : '#161616',
+        fontFamily: 'Manrope, sans-serif',
+      }}
+    >
       {/* NAVBAR */}
-      <header className="navbar">
-        <div className="container nav-inner">
-          <div className="brand">
-            <img src="/assets/logo-trk.svg" alt="TRK" width="28" height="28"
-                 style={{borderRadius:8,border:"1px solid rgba(241,196,15,.6)",boxShadow:"0 4px 14px rgba(0,0,0,.25)"}} />
+      <header style={navbarStyle(theme)}>
+        <nav style={navInner}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <img src="/assets/logo-trk.svg" alt="TRK Impact Logo" width="36" height="36" />
             <strong>{t.brand}</strong>
           </div>
 
-          <div style={{display:"flex",alignItems:"center",gap:10}}>
-            <select aria-label={t.langLabel} value={lang} onChange={(e)=>setLang(e.target.value)}
-                    style={{padding:"6px 10px",borderRadius:10,border:"1px solid rgba(241,196,15,.45)",background:"transparent",color:"inherit"}}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <select value={lang} onChange={(e) => setLang(e.target.value)} style={selectStyle(theme)}>
               <option value="fr">🇫🇷 FR</option>
               <option value="en">🇬🇧 EN</option>
               <option value="ar">🇲🇦 AR</option>
             </select>
-            <a className="btn btn-primary" href={DEAL_DECK_PDF} target="_blank" rel="noopener noreferrer"
-               onClick={()=>track.both({
-                 gaEvent:"file_download", gaParams:{file_name:"TRK-DealDeck.pdf",file_extension:"pdf",link_url:DEAL_DECK_PDF,lang,theme},
-                 fbEvent:"ViewContent", fbParams:{content_name:"DealDeck PDF",content_category:"asset",lang,theme}, fbStandard:true
-               })}>
-              {t.cta}
-            </a>
+            <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} style={btnGhost}>
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
           </div>
-        </div>
+        </nav>
       </header>
 
       {/* MAIN */}
-      <main ref={animRootRef}>
-        <div className="container">
+      <main ref={animRootRef} style={{ maxWidth: 1180, margin: '0 auto', padding: '40px 16px' }}>
+        {/* HERO */}
+        <section data-animate="fade" style={heroCard}>
+          <h1 style={{ fontSize: 36, margin: 0 }}>{t.tagline}</h1>
+          <p style={{ margin: '10px 0 20px', fontSize: 18 }}>{t.subtagline}</p>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <a href={DEAL_DECK_PDF} target="_blank" rel="noopener noreferrer" style={btnPrimary}>
+              {t.ctaDeck}
+            </a>
+            <a href={CALENDBOOK_LINK} target="_blank" rel="noopener noreferrer" style={btnGhost}>
+              {t.ctaCall}
+            </a>
+          </div>
+        </section>
 
-          {/* HERO */}
-          <section className="section">
-            <div className="card grid-2 hero" data-animate="fade">
-              <div className="stack-16">
-                <h1 className="h1">{t.tagline}</h1>
-                <p className="p">GitHub + Vercel • GA4 + Meta Pixel • UI premium noir & or</p>
-                <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
-                  <a className="btn btn-primary" href={DEAL_DECK_PDF} target="_blank" rel="noopener noreferrer">{t.cta}</a>
-                  <a className="btn btn-ghost" href={HOMEPAGE_MOCKUP_IMG} target="_blank" rel="noopener noreferrer">{t.mockupTitle}</a>
-                </div>
-              </div>
-              <div className="hero-visual">
-                <img src={HOMEPAGE_MOCKUP_IMG} alt="Aperçu TRK Impact Premium" loading="eager" />
-              </div>
-            </div>
-          </section>
+        {/* PLATEFORMES */}
+        <section data-animate="fade" style={section}>
+          <h2 style={h2}>{t.featuresTitle}</h2>
+          <div style={iconGrid}>
+            <img src="/assets/icons/airbnb.svg" alt="Airbnb" style={iconStyle} />
+            <img src="/assets/icons/booking.svg" alt="Booking" style={iconStyle} />
+            <img src="/assets/icons/abritel.svg" alt="Abritel" style={iconStyle} />
+          </div>
+        </section>
 
-          {/* FEATURES */}
-          <section className="section" data-animate="fade">
-            <h2 className="h2">{t.featuresTitle}</h2>
-            <ul className="features">
-              {t.features.map((f,i)=>(
-                <li key={i} className="feature"><span style={{fontSize:18}}>⭐</span><span>{f}</span></li>
-              ))}
-            </ul>
-          </section>
+        {/* TÉMOIGNAGES */}
+        <section data-animate="fade" style={section}>
+          <h2 style={h2}>{t.testimonialsTitle}</h2>
+          <TestimonialsCarousel lang={lang} />
+        </section>
 
-          {/* TESTIMONIALS */}
-          <section className="section" data-animate="fade">
-            <h2 className="h2">{t.testimonialsTitle}</h2>
-            <div className="card"><TestimonialsCarousel lang={lang} /></div>
-          </section>
-
-          {/* BIO */}
-          <section className="section" data-animate="fade">
-            <h2 className="h2">{t.bioTitle}</h2>
-            <div className="card bio">
-              <div style={{
-                width:70,height:70,borderRadius:"50%",
-                background:"linear-gradient(135deg,#121212 0%,#2c2c2c 100%)",
-                border:"1.5px solid rgba(241,196,15,.6)", boxShadow:"0 6px 20px rgba(0,0,0,.35)"
-              }} />
-              <div>
-                <strong style={{fontSize:18,display:"block"}}>Taha Kerssane</strong>
-                <p className="p" style={{marginTop:6}}>{t.bio}</p>
-              </div>
-            </div>
-          </section>
-
-          {/* FOOTER */}
-          <footer className="footer">{t.footer}</footer>
-        </div>
+        {/* BIO */}
+        <section data-animate="fade" style={section}>
+          <h2 style={h2}>{t.bioTitle}</h2>
+          <div style={bioCard}>
+            <img src="/assets/taha.jpg" alt="Taha Kerssane" width="70" height="70" style={avatar} />
+            <p>{t.bio}</p>
+          </div>
+        </section>
       </main>
 
-      {/* WHATSAPP FLOATING */}
-      <div id="wa-bubble" style={{ position:"fixed", right:18, bottom:18, zIndex:60 }}>
-        <button onClick={()=>setWaOpen(v=>!v)} title={t.menuWhatsApp}
-                style={{ width:54,height:54,borderRadius:"50%",border:"1px solid rgba(241,196,15,.6)",
-                         background:"linear-gradient(135deg,#141414 0%,#2c2c2c 100%)", color:"#f1c40f",
-                         boxShadow:"0 10px 30px rgba(0,0,0,.35)", fontSize:26, display:"grid", placeItems:"center", cursor:"pointer" }}>
-          🟢
+      {/* FOOTER */}
+      <footer style={footer(theme)}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+          <img src="/assets/whatsapp-qr.png" alt="QR WhatsApp" width="90" height="90" />
+          <a href={CALENDBOOK_LINK} target="_blank" rel="noopener noreferrer" style={btnPrimary}>
+            📅 Prendre rendez-vous
+          </a>
+          <small>{t.footer}</small>
+        </div>
+      </footer>
+
+      {/* BULLE WHATSAPP */}
+      <div id="wa-bubble" style={waBubbleWrap}>
+        <button onClick={() => setWaOpen(!waOpen)} style={waButton}>
+          💬
         </button>
         {waOpen && (
-          <div role="menu" style={{
-            marginTop:8,borderRadius:14,overflow:"hidden",border:"1px solid rgba(241,196,15,.35)",
-            boxShadow:"0 10px 30px rgba(0,0,0,.35)", background:"linear-gradient(180deg,rgba(18,18,18,.95) 0%, rgba(10,10,10,.95) 100%)", minWidth:180
-          }}>
-            <a role="menuitem" href={WHATSAPP_FR} target="_blank" rel="noopener noreferrer"
-               style={{display:"block",padding:"12px 14px",color:"#f1c40f",textDecoration:"none"}}>
-              🇫🇷 {t.frShort}
-            </a>
-            <div style={{borderTop:"1px solid rgba(241,196,15,.18)"}} />
-            <a role="menuitem" href={WHATSAPP_MA} target="_blank" rel="noopener noreferrer"
-               style={{display:"block",padding:"12px 14px",color:"#f1c40f",textDecoration:"none"}}>
-              🇲🇦 {t.maShort}
-            </a>
+          <div style={waMenu}>
+            <a href={WHATSAPP_FR} target="_blank" rel="noopener noreferrer" style={waItem}>🇫🇷 WhatsApp FR</a>
+            <a href={WHATSAPP_MA} target="_blank" rel="noopener noreferrer" style={waItem}>🇲🇦 WhatsApp MA</a>
           </div>
         )}
       </div>
-    </>
+
+      <style>{fadeCSS}</style>
+    </div>
   );
 }
+
+// ========================
+// Styles réutilisables
+// ========================
+const navbarStyle = (theme) => ({
+  position: 'sticky',
+  top: 0,
+  zIndex: 50,
+  backdropFilter: 'blur(10px)',
+  background: theme === 'dark' ? 'rgba(10,10,10,.7)' : 'rgba(255,255,255,.6)',
+  borderBottom: theme === 'dark' ? '1px solid rgba(241,196,15,.2)' : '1px solid rgba(0,0,0,.06)',
+});
+const navInner = {
+  maxWidth: 1180,
+  margin: '0 auto',
+  padding: '12px 16px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+};
+const selectStyle = (theme) => ({
+  padding: '6px 10px',
+  borderRadius: 8,
+  border: theme === 'dark' ? '1px solid rgba(241,196,15,.4)' : '1px solid rgba(0,0,0,.2)',
+  background: 'transparent',
+  color: 'inherit',
+});
+const heroCard = {
+  borderRadius: 18,
+  padding: 30,
+  textAlign: 'center',
+  background: 'linear-gradient(180deg, rgba(20,20,20,.9) 0%, rgba(10,10,10,.9) 100%)',
+  border: '1px solid rgba(241,196,15,.25)',
+  boxShadow: '0 12px 40px rgba(0,0,0,.35)',
+};
+const btnPrimary = {
+  padding: '10px 16px',
+  borderRadius: 12,
+  border: '1px solid rgba(241,196,15,.6)',
+  background: 'linear-gradient(135deg,#1c1c1c,#3a3a3a)',
+  color: '#f1c40f',
+  fontWeight: 700,
+  textDecoration: 'none',
+};
+const btnGhost = {
+  padding: '10px 16px',
+  borderRadius: 12,
+  border: '1px solid rgba(241,196,15,.3)',
+  background: 'transparent',
+  color: '#f1c40f',
+  fontWeight: 600,
+  textDecoration: 'none',
+};
+const section = { marginTop: 50, textAlign: 'center' };
+const h2 = { fontSize: 28, marginBottom: 16 };
+const iconGrid = {
+  display: 'flex',
+  justifyContent: 'center',
+  gap: 30,
+  flexWrap: 'wrap',
+};
+const iconStyle = {
+  width: 64,
+  height: 64,
+  filter: 'drop-shadow(0 0 5px rgba(241,196,15,.4))',
+};
+const bioCard = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 14,
+  justifyContent: 'center',
+  flexWrap: 'wrap',
+};
+const avatar = {
+  borderRadius: '50%',
+  border: '2px solid rgba(241,196,15,.5)',
+  boxShadow: '0 6px 20px rgba(0,0,0,.35)',
+};
+const footer = (theme) => ({
+  padding: '40px 16px',
+  borderTop: theme === 'dark' ? '1px solid rgba(241,196,15,.15)' : '1px solid rgba(0,0,0,.1)',
+  textAlign: 'center',
+});
+const waBubbleWrap = { position: 'fixed', right: 18, bottom: 18, zIndex: 60 };
+const waButton = {
+  width: 54,
+  height: 54,
+  borderRadius: '50%',
+  border: '1px solid rgba(241,196,15,.6)',
+  background: 'linear-gradient(135deg,#141414,#2c2c2c)',
+  color: '#f1c40f',
+  fontSize: 24,
+  cursor: 'pointer',
+};
+const waMenu = {
+  marginTop: 8,
+  borderRadius: 14,
+  overflow: 'hidden',
+  background: 'rgba(20,20,20,.95)',
+  border: '1px solid rgba(241,196,15,.3)',
+};
+const waItem = {
+  display: 'block',
+  padding: '10px 14px',
+  color: '#f1c40f',
+  textDecoration: 'none',
+};
+const fadeCSS = `
+[data-animate="fade"]{opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s;}
+.fade-in-visible{opacity:1!important;transform:translateY(0)!important;}
+`;
