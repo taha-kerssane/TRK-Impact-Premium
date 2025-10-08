@@ -1,521 +1,252 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import TestimonialsCarousel from './components/TestimonialsCarousel.jsx';
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import TestimonialsCarousel from "./components/TestimonialsCarousel.jsx";
 
-// ========================
-// Constantes TRK Impact Premium (liens réels validés)
-// ========================
-const DEAL_DECK_PDF = 'https://trk-impact.vercel.app/TRK-DealDeck.pdf';
-const HOMEPAGE_MOCKUP_IMG = 'https://trk-impact.vercel.app/assets/mockup-3d-home.webp';
-const WHATSAPP_FR = 'https://wa.me/33651259462?text=Bonjour%20Taha%2C%20je%20souhaite%20%C3%A9changer%20au%20sujet%20de%20TRK%20Impact%20Premium%20%F0%9F%87%AB%F0%9F%87%B7';
-const WHATSAPP_MA = 'https://wa.me/212771348429?text=Salam%20Taha%2C%20je%20souhaite%20plus%20d%E2%80%99infos%20sur%20TRK%20Impact%20Premium%20%F0%9F%87%B2%F0%9F%87%A6';
+const DEAL_DECK_PDF = "/TRK-DealDeck.pdf";
+const HOMEPAGE_MOCKUP_IMG = "/assets/mockup-3d-home.webp";
+const WHATSAPP_FR = "https://wa.me/33651259462?text=Bonjour%20Taha%2C%20je%20souhaite%20%C3%A9changer%20au%20sujet%20de%20TRK%20Impact%20Premium%20%F0%9F%87%AB%F0%9F%87%B7";
+const WHATSAPP_MA = "https://wa.me/212771348429?text=Salam%20Taha%2C%20je%20souhaite%20plus%20d%E2%80%99infos%20sur%20TRK%20Impact%20Premium%20%F0%9F%87%B2%F0%9F%87%A6";
 
-// ========================
-// i18n local minimal
-// ========================
 const dict = {
   fr: {
-    brand: 'TRK Impact Premium',
-    tagline: 'Image premium. Vitesse. Conversion.',
-    cta: 'Télécharger le Deal Deck',
-    featuresTitle: 'Pourquoi TRK Impact ?',
+    brand: "TRK Impact Premium",
+    tagline: "Image premium. Vitesse. Conversion.",
+    cta: "Télécharger le Deal Deck",
+    featuresTitle: "Pourquoi TRK Impact ?",
     features: [
-      'Interface multilingue FR/EN/AR',
-      'Mode sombre / clair',
-      'Carrousel de témoignages auto-défilant',
-      'Animations fluides section par section',
-      'Tracking GA4 + Meta Pixel',
-      'Déploiement GitHub + Vercel',
+      "Interface multilingue FR/EN/AR",
+      "Mode sombre / clair",
+      "Carrousel de témoignages auto-défilant",
+      "Animations fluides section par section",
+      "Tracking GA4 + Meta Pixel",
+      "Déploiement GitHub + Vercel",
     ],
-    testimonialsTitle: 'Témoignages',
-    mockupTitle: 'Aperçu',
-    bioTitle: 'À propos de Taha Kerssane',
+    testimonialsTitle: "Témoignages",
+    mockupTitle: "Aperçu",
+    bioTitle: "À propos de Taha Kerssane",
     bio:
       "Closer & entrepreneur, j'accompagne les marques ambitieuses à lancer des sites premium orientés conversion (funnel clair, analytics, créas soignées). Objectif : crédibilité, leads qualifiés et ROI.",
-    footer: '© ' + new Date().getFullYear() + ' TRK Impact — Tous droits réservés.',
-    langLabel: 'Langue',
-    themeLight: 'Clair',
-    themeDark: 'Sombre',
-    menuWhatsApp: 'WhatsApp',
-    frShort: 'FR',
-    maShort: 'MA',
+    footer: "© " + new Date().getFullYear() + " TRK Impact — Tous droits réservés.",
+    langLabel: "Langue",
+    themeLight: "Clair",
+    themeDark: "Sombre",
+    menuWhatsApp: "WhatsApp",
+    frShort: "FR",
+    maShort: "MA",
   },
   en: {
-    brand: 'TRK Impact Premium',
-    tagline: 'Premium look. Speed. Conversion.',
-    cta: 'Download Deal Deck',
-    featuresTitle: 'Why TRK Impact?',
+    brand: "TRK Impact Premium",
+    tagline: "Premium look. Speed. Conversion.",
+    cta: "Download Deal Deck",
+    featuresTitle: "Why TRK Impact?",
     features: [
-      'Multilingual FR/EN/AR',
-      'Light / Dark mode',
-      'Auto-scrolling testimonials',
-      'Smooth section animations',
-      'GA4 + Meta Pixel tracking',
-      'GitHub + Vercel deployment',
+      "Multilingual FR/EN/AR",
+      "Light / Dark mode",
+      "Auto-scrolling testimonials",
+      "Smooth section animations",
+      "GA4 + Meta Pixel tracking",
+      "GitHub + Vercel deployment",
     ],
-    testimonialsTitle: 'Testimonials',
-    mockupTitle: 'Preview',
-    bioTitle: 'About Taha Kerssane',
+    testimonialsTitle: "Testimonials",
+    mockupTitle: "Preview",
+    bioTitle: "About Taha Kerssane",
     bio:
-      'Closer & entrepreneur helping ambitious brands launch premium, conversion-focused websites (clear funnel, analytics, polished creatives). Goal: credibility, qualified leads & ROI.',
-    footer: '© ' + new Date().getFullYear() + ' TRK Impact — All rights reserved.',
-    langLabel: 'Language',
-    themeLight: 'Light',
-    themeDark: 'Dark',
-    menuWhatsApp: 'WhatsApp',
-    frShort: 'FR',
-    maShort: 'MA',
+      "Closer & entrepreneur helping ambitious brands launch premium, conversion-focused websites (clear funnel, analytics, polished creatives). Goal: credibility, qualified leads & ROI.",
+    footer: "© " + new Date().getFullYear() + " TRK Impact — All rights reserved.",
+    langLabel: "Language",
+    themeLight: "Light",
+    themeDark: "Dark",
+    menuWhatsApp: "WhatsApp",
+    frShort: "FR",
+    maShort: "MA",
   },
   ar: {
-    brand: 'TRK Impact Premium',
-    tagline: 'هوية فاخرة. سرعة. تحويل.',
-    cta: 'تحميل ملف العرض (Deal Deck)',
-    featuresTitle: 'لماذا TRK Impact؟',
+    brand: "TRK Impact Premium",
+    tagline: "هوية فاخرة. سرعة. تحويل.",
+    cta: "تحميل ملف العرض (Deal Deck)",
+    featuresTitle: "لماذا TRK Impact؟",
     features: [
-      'واجهة متعددة اللغات FR/EN/AR',
-      'وضع فاتح / داكن',
-      'شهادات عملاء بتمرير تلقائي',
-      'حركات سلسة لكل قسم',
-      'تتبّع GA4 + Meta Pixel',
-      'إطلاق عبر GitHub + Vercel',
+      "واجهة متعددة اللغات FR/EN/AR",
+      "وضع فاتح / داكن",
+      "شهادات عملاء بتمرير تلقائي",
+      "حركات سلسة لكل قسم",
+      "تتبّع GA4 + Meta Pixel",
+      "إطلاق عبر GitHub + Vercel",
     ],
-    testimonialsTitle: 'آراء العملاء',
-    mockupTitle: 'معاينة',
-    bioTitle: 'نبذة عن طه كرسّان',
+    testimonialsTitle: "آراء العملاء",
+    mockupTitle: "معاينة",
+    bioTitle: "نبذة عن طه كرسّان",
     bio:
-      'Closer ورائد أعمال يساعد العلامات الطموحة على إطلاق مواقع فاخرة تركز على التحويل (قُمع واضح، تحليلات، تصاميم احترافية). الهدف: المصداقية والعملاء المؤهلون والعائد.',
-    footer: '© ' + new Date().getFullYear() + ' TRK Impact — جميع الحقوق محفوظة.',
-    langLabel: 'اللغة',
-    themeLight: 'فاتح',
-    themeDark: 'داكن',
-    menuWhatsApp: 'واتساب',
-    frShort: 'فرنسا',
-    maShort: 'المغرب',
+      "Closer ورائد أعمال يساعد العلامات الطموحة على إطلاق مواقع فاخرة تركز على التحويل (قُمع واضح، تحليلات، تصاميم احترافية). الهدف: المصداقية والعملاء المؤهلون والعائد.",
+    footer: "© " + new Date().getFullYear() + " TRK Impact — جميع الحقوق محفوظة.",
+    langLabel: "اللغة",
+    themeLight: "فاتح",
+    themeDark: "داكن",
+    menuWhatsApp: "واتساب",
+    frShort: "فرنسا",
+    maShort: "المغرب",
   },
 };
 
-// --- Tracking unifié GA4 + Meta Pixel ---
 const track = {
-  ga4(name, params = {}) {
-    try {
-      if (typeof window.gtag === 'function') window.gtag('event', name, params);
-    } catch {}
-  },
+  ga4(name, params = {}) { try { if (typeof window.gtag === "function") window.gtag("event", name, params); } catch {} },
   fb(event, params = {}, { standard = false } = {}) {
     try {
-      if (typeof window.fbq === 'function') {
-        if (standard) window.fbq('track', event, params);
-        else window.fbq('trackCustom', event, params);
-      }
+      if (typeof window.fbq === "function") { standard ? window.fbq("track", event, params) : window.fbq("trackCustom", event, params); }
     } catch {}
   },
   both({ gaEvent, gaParams, fbEvent, fbParams, fbStandard = false }) {
-    track.ga4(gaEvent, gaParams);
-    track.fb(fbEvent, fbParams, { standard: fbStandard });
+    track.ga4(gaEvent, gaParams); track.fb(fbEvent, fbParams, { standard: fbStandard });
   },
 };
 
-// ========================
-// Utilitaires
-// ========================
 const getInitialLang = () => {
-  const saved = localStorage.getItem('trk_lang');
+  const saved = localStorage.getItem("trk_lang");
   if (saved) return saved;
-  const nav = navigator.language?.toLowerCase() || 'fr';
-  if (nav.startsWith('ar')) return 'ar';
-  if (nav.startsWith('en')) return 'en';
-  return 'fr';
-};
-
-const getInitialTheme = () => {
-  const saved = localStorage.getItem('trk_theme');
-  if (saved === 'dark' || saved === 'light') return saved;
-  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-  return prefersDark ? 'dark' : 'light';
+  const nav = navigator.language?.toLowerCase() || "fr";
+  if (nav.startsWith("ar")) return "ar";
+  if (nav.startsWith("en")) return "en";
+  return "fr";
 };
 
 const useFadeIn = () => {
   const ref = useRef(null);
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('fade-in-visible');
-            io.unobserve(e.target);
-          }
-        }),
-      { threshold: 0.2 }
-    );
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add("fade-in-visible"); io.unobserve(e.target); }
+    }), { threshold: 0.2 });
     el.querySelectorAll('[data-animate="fade"]').forEach((n) => io.observe(n));
     return () => io.disconnect();
   }, []);
   return ref;
 };
 
-// ========================
-// App
-// ========================
 export default function App() {
   const [lang, setLang] = useState(getInitialLang);
-  const [theme, setTheme] = useState(getInitialTheme);
-  const isRtl = lang === 'ar';
+  const [theme, setTheme] = useState("dark");
+  const isRtl = lang === "ar";
   const t = useMemo(() => dict[lang] || dict.fr, [lang]);
   const animRootRef = useFadeIn();
   const [waOpen, setWaOpen] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem('trk_lang', lang);
-    document.documentElement.setAttribute('lang', lang);
-    document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
+    localStorage.setItem("trk_lang", lang);
+    document.documentElement.setAttribute("lang", lang);
+    document.documentElement.setAttribute("dir", isRtl ? "rtl" : "ltr");
   }, [lang, isRtl]);
 
-  useEffect(() => {
-    localStorage.setItem('trk_theme', theme);
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
-
-  useEffect(() => {
-    const onClick = (e) => {
-      const bubble = document.getElementById('wa-bubble');
-      if (bubble && !bubble.contains(e.target)) setWaOpen(false);
-    };
-    document.addEventListener('click', onClick);
-    return () => document.removeEventListener('click', onClick);
-  }, []);
-
-  const onDownloadDeck = () => {
-    // Standard + custom events
-    track.both({
-      gaEvent: 'file_download',
-      gaParams: { file_name: 'TRK-DealDeck.pdf', file_extension: 'pdf', link_url: DEAL_DECK_PDF, lang, theme },
-      fbEvent: 'ViewContent',
-      fbParams: { content_name: 'DealDeck PDF', content_category: 'asset', lang, theme },
-      fbStandard: true,
-    });
-    track.both({
-      gaEvent: 'deal_deck_download',
-      gaParams: { link_url: DEAL_DECK_PDF, lang, theme },
-      fbEvent: 'deal_deck_download',
-      fbParams: { link_url: DEAL_DECK_PDF, lang, theme },
-    });
-    window.open(DEAL_DECK_PDF, '_blank', 'noopener,noreferrer');
-  };
-
   return (
-    <div
-      className="min-h-screen"
-      style={{
-        background:
-          theme === 'dark'
-            ? 'linear-gradient(180deg,#0b0b0b 0%,#121212 100%)'
-            : 'linear-gradient(180deg,#fafafa 0%,#ffffff 100%)',
-        color: theme === 'dark' ? '#f5f5f5' : '#161616',
-        transition: 'background .3s ease, color .3s ease',
-      }}
-    >
+    <>
       {/* NAVBAR */}
-      <header
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 50,
-          backdropFilter: 'blur(10px)',
-          background: theme === 'dark' ? 'rgba(10,10,10,.6)' : 'rgba(255,255,255,.6)',
-          borderBottom: theme === 'dark' ? '1px solid rgba(241,196,15,.15)' : '1px solid rgba(0,0,0,.06)',
-        }}
-      >
-        <nav
-          style={{
-            maxWidth: 1180,
-            margin: '0 auto',
-            padding: '12px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 12,
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            {/* Remplacement du carré décoratif par le logo TRK */}
-            <img
-              src="/assets/logo-trk.svg"
-              alt="Logo TRK Impact Premium"
-              style={{
-                width: 28,
-                height: 28,
-                objectFit: 'contain',
-                borderRadius: 8,
-                border: '1px solid rgba(241,196,15,.6)',
-                boxShadow: '0 4px 14px rgba(0,0,0,.25)',
-                background: 'transparent'
-              }}
-            />
-            <strong style={{ letterSpacing: '.3px' }}>{t.brand}</strong>
+      <header className="navbar">
+        <div className="container nav-inner">
+          <div className="brand">
+            <img src="/assets/logo-trk.svg" alt="TRK" width="28" height="28"
+                 style={{borderRadius:8,border:"1px solid rgba(241,196,15,.6)",boxShadow:"0 4px 14px rgba(0,0,0,.25)"}} />
+            <strong>{t.brand}</strong>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            {/* Lang selector */}
-            <select
-              aria-label={t.langLabel}
-              value={lang}
-              onChange={(e) => setLang(e.target.value)}
-              style={{
-                padding: '6px 10px',
-                borderRadius: 10,
-                border: '1px solid rgba(241,196,15,.45)',
-                background: 'transparent',
-                color: 'inherit',
-              }}
-            >
+          <div style={{display:"flex",alignItems:"center",gap:10}}>
+            <select aria-label={t.langLabel} value={lang} onChange={(e)=>setLang(e.target.value)}
+                    style={{padding:"6px 10px",borderRadius:10,border:"1px solid rgba(241,196,15,.45)",background:"transparent",color:"inherit"}}>
               <option value="fr">🇫🇷 FR</option>
               <option value="en">🇬🇧 EN</option>
               <option value="ar">🇲🇦 AR</option>
             </select>
-
-            {/* Theme toggle */}
-            <button
-              onClick={() => {
-                const next = theme === 'dark' ? 'light' : 'dark';
-                setTheme(next);
-                track.both({
-                  gaEvent: 'theme_change',
-                  gaParams: { theme_before: theme, theme_after: next, lang },
-                  fbEvent: 'theme_change',
-                  fbParams: { theme_before: theme, theme_after: next, lang },
-                });
-              }}
-              style={btnGhostStyle}
-              aria-label={theme === 'dark' ? t.themeLight : t.themeDark}
-              title={theme === 'dark' ? t.themeLight : t.themeDark}
-            >
-              {theme === 'dark' ? '☀️' : '🌙'}
-            </button>
-
-            {/* CTA Deal Deck */}
-            <button onClick={onDownloadDeck} style={btnPrimaryStyle}>
+            <a className="btn btn-primary" href={DEAL_DECK_PDF} target="_blank" rel="noopener noreferrer"
+               onClick={()=>track.both({
+                 gaEvent:"file_download", gaParams:{file_name:"TRK-DealDeck.pdf",file_extension:"pdf",link_url:DEAL_DECK_PDF,lang,theme},
+                 fbEvent:"ViewContent", fbParams:{content_name:"DealDeck PDF",content_category:"asset",lang,theme}, fbStandard:true
+               })}>
               {t.cta}
-            </button>
+            </a>
           </div>
-        </nav>
+        </div>
       </header>
 
-      {/* CONTENU */}
-      <main ref={animRootRef} style={{ maxWidth: 1180, margin: '0 auto', padding: '20px 16px 80px' }}>
-        {/* HERO */}
-        <section data-animate="fade" style={cardHeroStyle}>
-          <div style={{ display: 'grid', gap: 12 }}>
-            <h1 style={{ margin: 0, fontSize: 38, lineHeight: 1.15 }}>
-              {t.tagline}
-            </h1>
-            <p style={{ margin: 0, opacity: 0.9, fontSize: 18 }}>
-              GitHub + Vercel • GA4 + Meta Pixel • UI premium noir & or
-            </p>
-            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              <button onClick={onDownloadDeck} style={btnPrimaryStyle}>
-                {t.cta}
-              </button>
-              <a
-                href={HOMEPAGE_MOCKUP_IMG}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() =>
-                  track.both({
-                    gaEvent: 'mockup_open',
-                    gaParams: { lang },
-                    fbEvent: 'mockup_open',
-                    fbParams: { lang },
-                  })
-                }
-                style={btnGhostStyle}
-              >
-                {t.mockupTitle}
-              </a>
+      {/* MAIN */}
+      <main ref={animRootRef}>
+        <div className="container">
+
+          {/* HERO */}
+          <section className="section">
+            <div className="card grid-2 hero" data-animate="fade">
+              <div className="stack-16">
+                <h1 className="h1">{t.tagline}</h1>
+                <p className="p">GitHub + Vercel • GA4 + Meta Pixel • UI premium noir & or</p>
+                <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
+                  <a className="btn btn-primary" href={DEAL_DECK_PDF} target="_blank" rel="noopener noreferrer">{t.cta}</a>
+                  <a className="btn btn-ghost" href={HOMEPAGE_MOCKUP_IMG} target="_blank" rel="noopener noreferrer">{t.mockupTitle}</a>
+                </div>
+              </div>
+              <div className="hero-visual">
+                <img src={HOMEPAGE_MOCKUP_IMG} alt="Aperçu TRK Impact Premium" loading="eager" />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* FEATURES */}
-        <section data-animate="fade" style={sectionStyle}>
-          <h2 style={h2Style}>{t.featuresTitle}</h2>
-          <ul style={featuresListStyle}>
-            {t.features.map((f, i) => (
-              <li key={i} style={featureItemStyle}>
-                <span style={{ fontSize: 18 }}>⭐</span>
-                <span>{f}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+          {/* FEATURES */}
+          <section className="section" data-animate="fade">
+            <h2 className="h2">{t.featuresTitle}</h2>
+            <ul className="features">
+              {t.features.map((f,i)=>(
+                <li key={i} className="feature"><span style={{fontSize:18}}>⭐</span><span>{f}</span></li>
+              ))}
+            </ul>
+          </section>
 
-        {/* TESTIMONIALS */}
-        <section data-animate="fade" style={sectionStyle}>
-          <h2 style={h2Style}>{t.testimonialsTitle}</h2>
-          <TestimonialsCarousel lang={lang} />
-        </section>
+          {/* TESTIMONIALS */}
+          <section className="section" data-animate="fade">
+            <h2 className="h2">{t.testimonialsTitle}</h2>
+            <div className="card"><TestimonialsCarousel lang={lang} /></div>
+          </section>
 
-        {/* BIO TAHA */}
-        <section data-animate="fade" style={sectionStyle}>
-          <h2 style={h2Style}>{t.bioTitle}</h2>
-          <div style={bioCardStyle}>
-            <div
-              aria-hidden
-              style={{
-                width: 70, height: 70, borderRadius: '50%',
-                background: 'linear-gradient(135deg, rgba(18,18,18,1) 0%, rgba(44,44,44,1) 100%)',
-                border: '1.5px solid rgba(241,196,15,.6)',
-                boxShadow: '0 6px 20px rgba(0,0,0,.35)',
-              }}
-            />
-            <div>
-              <strong style={{ fontSize: 18, display: 'block' }}>
-                Taha Kerssane
-              </strong>
-              <p style={{ margin: '6px 0 0 0', opacity: 0.92 }}>{t.bio}</p>
+          {/* BIO */}
+          <section className="section" data-animate="fade">
+            <h2 className="h2">{t.bioTitle}</h2>
+            <div className="card bio">
+              <div style={{
+                width:70,height:70,borderRadius:"50%",
+                background:"linear-gradient(135deg,#121212 0%,#2c2c2c 100%)",
+                border:"1.5px solid rgba(241,196,15,.6)", boxShadow:"0 6px 20px rgba(0,0,0,.35)"
+              }} />
+              <div>
+                <strong style={{fontSize:18,display:"block"}}>Taha Kerssane</strong>
+                <p className="p" style={{marginTop:6}}>{t.bio}</p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+
+          {/* FOOTER */}
+          <footer className="footer">{t.footer}</footer>
+        </div>
       </main>
 
-      {/* FOOTER */}
-      <footer
-        style={{
-          padding: '28px 16px',
-          borderTop: theme === 'dark' ? '1px solid rgba(241,196,15,.18)' : '1px solid rgba(0,0,0,.08)',
-          textAlign: 'center',
-          fontSize: 14,
-          opacity: 0.9,
-        }}
-      >
-        {t.footer}
-      </footer>
-
-      {/* WHATSAPP FLOATING BUBBLE */}
-      <div id="wa-bubble" style={{ position: 'fixed', right: 18, bottom: 18, zIndex: 60 }}>
-        <button
-          onClick={() => setWaOpen((v) => !v)}
-          aria-haspopup="menu"
-          aria-expanded={waOpen}
-          style={{
-            width: 54, height: 54, borderRadius: '50%',
-            border: '1px solid rgba(241,196,15,.6)',
-            background: 'linear-gradient(135deg, rgba(20,20,20,1) 0%, rgba(44,44,44,1) 100%)',
-            color: '#f1c40f', boxShadow: '0 10px 30px rgba(0,0,0,.35)', cursor: 'pointer',
-            fontSize: 26, display: 'grid', placeItems: 'center',
-          }}
-          title={t.menuWhatsApp}
-        >
+      {/* WHATSAPP FLOATING */}
+      <div id="wa-bubble" style={{ position:"fixed", right:18, bottom:18, zIndex:60 }}>
+        <button onClick={()=>setWaOpen(v=>!v)} title={t.menuWhatsApp}
+                style={{ width:54,height:54,borderRadius:"50%",border:"1px solid rgba(241,196,15,.6)",
+                         background:"linear-gradient(135deg,#141414 0%,#2c2c2c 100%)", color:"#f1c40f",
+                         boxShadow:"0 10px 30px rgba(0,0,0,.35)", fontSize:26, display:"grid", placeItems:"center", cursor:"pointer" }}>
           🟢
         </button>
-
         {waOpen && (
-          <div
-            role="menu"
-            style={{
-              marginTop: 8, borderRadius: 14, overflow: 'hidden',
-              border: '1px solid rgba(241,196,15,.35)',
-              boxShadow: '0 10px 30px rgba(0,0,0,.35)',
-              background: 'linear-gradient(180deg, rgba(18,18,18,.95) 0%, rgba(10,10,10,.95) 100%)',
-              minWidth: 180,
-            }}
-          >
-            <a
-              role="menuitem"
-              href={WHATSAPP_FR}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => {
-                track.both({
-                  gaEvent: 'select_content',
-                  gaParams: { content_type: 'whatsapp', content_id: 'whatsapp_fr', region: 'FR', lang, theme },
-                  fbEvent: 'Contact',
-                  fbParams: { method: 'whatsapp', region: 'FR', lang, theme },
-                  fbStandard: true,
-                });
-                track.both({
-                  gaEvent: 'whatsapp_click',
-                  gaParams: { region: 'FR', lang, theme },
-                  fbEvent: 'whatsapp_click',
-                  fbParams: { region: 'FR', lang, theme },
-                });
-                setWaOpen(false);
-              }}
-              style={waItemStyle}
-            >
+          <div role="menu" style={{
+            marginTop:8,borderRadius:14,overflow:"hidden",border:"1px solid rgba(241,196,15,.35)",
+            boxShadow:"0 10px 30px rgba(0,0,0,.35)", background:"linear-gradient(180deg,rgba(18,18,18,.95) 0%, rgba(10,10,10,.95) 100%)", minWidth:180
+          }}>
+            <a role="menuitem" href={WHATSAPP_FR} target="_blank" rel="noopener noreferrer"
+               style={{display:"block",padding:"12px 14px",color:"#f1c40f",textDecoration:"none"}}>
               🇫🇷 {t.frShort}
             </a>
-            <a
-              role="menuitem"
-              href={WHATSAPP_MA}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => {
-                track.both({
-                  gaEvent: 'select_content',
-                  gaParams: { content_type: 'whatsapp', content_id: 'whatsapp_ma', region: 'MA', lang, theme },
-                  fbEvent: 'Contact',
-                  fbParams: { method: 'whatsapp', region: 'MA', lang, theme },
-                  fbStandard: true,
-                });
-                track.both({
-                  gaEvent: 'whatsapp_click',
-                  gaParams: { region: 'MA', lang, theme },
-                  fbEvent: 'whatsapp_click',
-                  fbParams: { region: 'MA', lang, theme },
-                });
-                setWaOpen(false);
-              }}
-              style={{ ...waItemStyle, borderTop: '1px solid rgba(241,196,15,.18)' }}
-            >
+            <div style={{borderTop:"1px solid rgba(241,196,15,.18)"}} />
+            <a role="menuitem" href={WHATSAPP_MA} target="_blank" rel="noopener noreferrer"
+               style={{display:"block",padding:"12px 14px",color:"#f1c40f",textDecoration:"none"}}>
               🇲🇦 {t.maShort}
             </a>
           </div>
         )}
       </div>
-
-      <style>{cssHelpers}</style>
-    </div>
+    </>
   );
 }
-
-// Styles
-const btnPrimaryStyle = {
-  padding: '10px 14px',
-  borderRadius: 12,
-  border: '1px solid rgba(241,196,15,.6)',
-  background: 'linear-gradient(135deg, rgba(28,28,28,1) 0%, rgba(50,50,50,1) 100%)',
-  color: '#f1c40f', fontWeight: 700, boxShadow: '0 6px 16px rgba(0,0,0,.35)', cursor: 'pointer',
-};
-const btnGhostStyle = {
-  padding: '10px 14px',
-  borderRadius: 12,
-  border: '1px solid rgba(241,196,15,.35)',
-  background: 'transparent', color: '#f1c40f', fontWeight: 600, cursor: 'pointer',
-};
-const cardHeroStyle = {
-  display: 'grid', alignItems: 'center', minHeight: 240, borderRadius: 18, padding: 24,
-  background: 'linear-gradient(180deg, rgba(20,20,20,.92) 0%, rgba(10,10,10,.92) 100%)',
-  border: '1px solid rgba(241,196,15,.20)', boxShadow: '0 12px 40px rgba(0,0,0,.35)',
-};
-const sectionStyle = { marginTop: 26 };
-const h2Style = { margin: '0 0 12px 0', fontSize: 26 };
-const featuresListStyle = { listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 10 };
-const featureItemStyle = {
-  display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', borderRadius: 14,
-  border: '1px solid rgba(241,196,15,.18)',
-  background: 'linear-gradient(180deg, rgba(22,22,22,.85) 0%, rgba(12,12,12,.85) 100%)',
-};
-const bioCardStyle = {
-  display: 'grid', gridTemplateColumns: '70px 1fr', gap: 14, alignItems: 'center',
-  padding: 16, borderRadius: 14,
-  border: '1px solid rgba(241,196,15,.18)',
-  background: 'linear-gradient(180deg, rgba(22,22,22,.85) 0%, rgba(12,12,12,.85) 100%)',
-};
-const waItemStyle = { display: 'flex', alignItems: 'center', gap: 8, color: '#f1c40f', textDecoration: 'none', padding: '12px 14px' };
-const cssHelpers = `
-  .fade-in-visible{opacity:1!important;transform:translateY(0)!important;}
-  [data-animate="fade"]{opacity:0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease;}
-  :root.dark body { background:#0b0b0b; }
-  @media (max-width:640px){ h1{font-size:30px!important;} }
-`;
