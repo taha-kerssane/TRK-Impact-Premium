@@ -154,8 +154,13 @@ export default function App(){
           </div>
         </div>
         <div className="rounded-2xl overflow-hidden border shadow-xl">
-          <img src="/actifs/taha.jpg" alt="Taha Kerssane — TRK Impact" className="w-full h-full object-cover"/>
-        </div>
+         {/* PHOTO HERO */}
+<img
+  src="/actifs/taha.jpg?v=2"
+  alt="Taha Kerssane — TRK Impact"
+  className="w-full h-full object-cover"
+/>
+       </div>
       </header>
 
       {/* SERVICES */}
@@ -188,15 +193,16 @@ export default function App(){
 
           <div className="mt-4 flex gap-3 flex-wrap">
            <a
+  {/* BOUTON PDF */}
+<a
   id="dealDeckBtn"
   className="btn btn-primary"
-  href="/actifs/DealDeck-TRK-Impact.pdf"
-  download
-  type="application/pdf"
+  href="/actifs/DealDeck-TRK-Impact.pdf?v=2"
+  download="DealDeck-TRK-Impact.pdf"
   rel="noopener"
-  onClick={()=>{
-    try{ gtag('event','deal_deck_download') }catch(e){}
-    try{ fbq('trackCustom','DealDeckDownload') }catch(e){}
+  onClick={() => {
+    try { gtag('event','deal_deck_download') } catch(e) {}
+    try { fbq('trackCustom','DealDeckDownload') } catch(e) {}
   }}
 >
   📄 Télécharger le Deal Deck (PDF)
@@ -225,7 +231,12 @@ export default function App(){
           <div className="card">
             <h3 className="font-bold mb-2">{t.directTitle}</h3>
             <div className="flex gap-3 items-center">
-<img src="/actifs/whatsapp-qr.png" alt="QR WhatsApp Taha" className="w-[120px] h-[120px] rounded-xl border"/>
+{/* QR WHATSAPP (PNG !) */}
+<img
+  src="/actifs/whatsapp-qr.png?v=2"
+  alt="QR WhatsApp Taha"
+  className="w-[120px] h-[120px] rounded-xl border"
+/>
               <div>
                 <div className="font-extrabold">Taha Kerssane</div>
                 <div className="text-sm text-slate-600">{t.role}</div>
