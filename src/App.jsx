@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from "react";
 
+/** ====== i18n ====== */
 const STR = {
   fr: {
     brand:"TRK Impact — Tanger",
@@ -7,6 +8,7 @@ const STR = {
     heroTitle:"Agence immobilière haut de gamme à Tanger",
     heroSub:"Loyer fixe garanti, exploitation courte durée optimisée, et expérience 5★ — sans aucun effort pour vous.",
     ctaOwner:"Je suis propriétaire",
+
     ownersTitle:"Services propriétaires & investisseurs",
     features:[
       ["Loyer fixe garanti","Pacte de rendement : revenus mensuels stables, zéro vacance."],
@@ -14,6 +16,7 @@ const STR = {
       ["Gestion 100% clé-en-main","Check-in/out, ménage hôtelier, maintenance, linge."],
       ["Conformité & assurance","Baux/avenants, règlement de copro, assurance RC."]
     ],
+
     investTitle:"Investisseurs — Rendement & sécurité",
     investCards:[
       ["Modèle de revenus","• Contrat à loyer fixe garanti<br>• Option indexation ou partage de performance<br>• Durée souple (12–36 mois)"],
@@ -21,17 +24,21 @@ const STR = {
       ["Gestion du risque","• Assurance, conformité copro, check-in autonome<br>• Standards ménage hôtelier & maintenance"],
       ["Onboarding express","• Audit (48h) • Shooting HDR<br>• Mise en ligne optimisée (Airbnb/Booking)"]
     ],
+
     pilotTitle:"Pilote — Résidence Tasnim (TASNIM 01)",
     pilotBullets:[
       "F4 • 150 m² • centre-ville • parking • fibre • check-in autonome",
       "ADR cible : 1 400 MAD • Occupation cible : 55 %",
       "Revenus bruts ~23 100 MAD • Marge nette ~8 000 MAD • Break-even ~7 nuits"
     ],
+
     directTitle:"Contact direct", role:"Chargé de location appartement",
     ctaWhats:"Parler sur WhatsApp", ctaContact:"Nous contacter", ctaWhats2:"WhatsApp direct",
+
     contactTitle:"Parlons de votre bien",
     contactSub:"Exploitons son plein potentiel dès ce mois-ci. Réponse rapide.",
     contactWhatsApp:"WhatsApp direct",
+
     footer:"© TRK Impact — Gestion locative premium à Tanger"
   },
 
@@ -102,26 +109,21 @@ const STR = {
     contactWhatsApp:"واتساب مباشر",
     footer:"© TRK Impact — إدارة إيجار فاخرة في طنجة"
   }
-}
+};
 
-const LANGS = ['fr','en','ar']
+const LANGS = ["fr","en","ar"];
 
 export default function App(){
-  const [lang, setLang] = useState('fr')
-  const t = useMemo(()=>STR[lang], [lang])
+  const [lang, setLang] = useState("fr");
+  const t = useMemo(()=>STR[lang], [lang]);
 
   useEffect(()=>{
-    document.documentElement.lang = lang
-    document.body.classList.toggle('rtl', lang==='ar')
-  },[lang])
-
-  const trackPdfClick = () => {
-    try{ gtag('event','deal_deck_download') }catch(e){}
-    try{ fbq('trackCustom','DealDeckDownload') }catch(e){}
-  }
+    document.documentElement.lang = lang;
+    document.body.classList.toggle("rtl", lang === "ar");
+  },[lang]);
 
   return (
-    <div className="texture min-h-screen">
+    <div className="texture min-h-screen text-slate-800">
       {/* NAV */}
       <div className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-[var(--line)]">
         <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
@@ -154,13 +156,9 @@ export default function App(){
           </div>
         </div>
         <div className="rounded-2xl overflow-hidden border shadow-xl">
-         {/* PHOTO HERO */}
-<img
-  src="/actifs/taha.jpg?v=2"
-  alt="Taha Kerssane — TRK Impact"
-  className="w-full h-full object-cover"
-/>
-       </div>
+          {/* PHOTO HERO (corrigée) */}
+          <img src="/actifs/taha.jpg" alt="Taha Kerssane — TRK Impact" className="w-full h-full object-cover"/>
+        </div>
       </header>
 
       {/* SERVICES */}
@@ -191,22 +189,22 @@ export default function App(){
             ))}
           </div>
 
+          {/* CTA: PDF + Rappel */}
           <div className="mt-4 flex gap-3 flex-wrap">
-           <a
-  {/* BOUTON PDF */}
-<a
-  id="dealDeckBtn"
-  className="btn btn-primary"
-  href="/actifs/DealDeck-TRK-Impact.pdf?v=2"
-  download="DealDeck-TRK-Impact.pdf"
-  rel="noopener"
-  onClick={() => {
-    try { gtag('event','deal_deck_download') } catch(e) {}
-    try { fbq('trackCustom','DealDeckDownload') } catch(e) {}
-  }}
->
-  📄 Télécharger le Deal Deck (PDF)
-</a>
+            {/* BOUTON PDF (corrigé + tracking) */}
+            <a
+              id="dealDeckBtn"
+              className="btn btn-primary"
+              href="/actifs/DealDeck-TRK-Impact.pdf?v=2"
+              download="DealDeck-TRK-Impact.pdf"
+              rel="noopener"
+              onClick={() => {
+                try { gtag('event','deal_deck_download') } catch(e) {}
+                try { fbq('trackCustom','DealDeckDownload') } catch(e) {}
+              }}
+            >
+              📄 Télécharger le Deal Deck (PDF)
+            </a>
 
             <a className="btn btn-contour" href="#contact">
               Être rappelé
@@ -215,7 +213,7 @@ export default function App(){
         </div>
       </section>
 
-      {/* PILOT + CONTACT DIRECT */}
+      {/* PILOTE + CONTACT DIRECT */}
       <section className="border-t border-b border-[var(--line)] bg-white">
         <div className="max-w-6xl mx-auto px-5 py-10 grid md:grid-cols-2 gap-6 items-start">
           <div className={lang==='ar'?'text-right':''}>
@@ -231,12 +229,8 @@ export default function App(){
           <div className="card">
             <h3 className="font-bold mb-2">{t.directTitle}</h3>
             <div className="flex gap-3 items-center">
-{/* QR WHATSAPP (PNG !) */}
-<img
-  src="/actifs/whatsapp-qr.png?v=2"
-  alt="QR WhatsApp Taha"
-  className="w-[120px] h-[120px] rounded-xl border"
-/>
+              {/* QR WHATSAPP (corrigé en .png) */}
+              <img src="/actifs/whatsapp-qr.png" alt="QR WhatsApp Taha" className="w-[120px] h-[120px] rounded-xl border"/>
               <div>
                 <div className="font-extrabold">Taha Kerssane</div>
                 <div className="text-sm text-slate-600">{t.role}</div>
@@ -265,6 +259,45 @@ export default function App(){
           <span className="inline-block px-3 py-1 rounded-full text-white text-xs" style={{background:"#111827"}}>Top 5% service</span>
         </div>
       </footer>
+
+      {/* ===== Bulle WhatsApp (noir & doré) ===== */}
+      <style>{`
+        #trkWhatsAppBtn{
+          position:fixed;bottom:22px;right:22px;background:#0f172a;color:#c6a972;
+          border-radius:50%;width:62px;height:62px;display:flex;align-items:center;justify-content:center;
+          font-size:28px;box-shadow:0 4px 20px rgba(0,0,0,.25);cursor:pointer;transition:.3s;z-index:1000
+        }
+        #trkWhatsAppBtn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(198,169,114,.35)}
+        #trkChatCard{
+          position:fixed;bottom:90px;right:22px;background:#fff;border-radius:16px;padding:16px 18px;width:280px;
+          font-family:Inter,system-ui,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.2);display:none;z-index:1001
+        }
+        #trkChatCard strong{color:#0f172a}
+        #trkChatCard a{display:block;margin-top:8px;background:#0f172a;color:#c6a972;text-align:center;border-radius:10px;padding:10px;font-weight:600}
+        #trkChatCard a:hover{background:#1c243a}
+        #trkChatCard small{display:block;margin-top:10px;color:#666;font-size:13px}
+      `}</style>
+      <div id="trkWhatsAppBtn" title="Parler avec Taha sur WhatsApp" aria-label="Ouvrir la messagerie WhatsApp">💬</div>
+      <div id="trkChatCard" aria-live="polite">
+        <p><strong>💬 Besoin d’une estimation ?</strong><br/>Parlez avec Taha sur WhatsApp :</p>
+        <a href="https://wa.me/33619642559" target="_blank" rel="noopener">🇫🇷 +33 6 19 64 25 59</a>
+        <a href="https://wa.me/212722584276" target="_blank" rel="noopener">🇲🇦 +212 7 22 58 42 76</a>
+        <small>Réponse rapide (8h – 22h) • tahakerssanepro@gmail.com</small>
+      </div>
+      <script dangerouslySetInnerHTML={{__html:`
+        (function(){
+          var btn=document.getElementById('trkWhatsAppBtn');
+          var card=document.getElementById('trkChatCard'); var timer;
+          btn.addEventListener('click',function(){
+            var open=card.style.display==='block';
+            card.style.display=open?'none':'block';
+            clearTimeout(timer);
+            if(!open) timer=setTimeout(function(){card.style.display='none'},9000);
+            try{gtag('event','whatsapp_bubble_click')}catch(e){}
+            try{fbq('trackCustom','WhatsAppBubbleClick')}catch(e){}
+          });
+        })();
+      `}}/>
     </div>
-  )
+  );
 }
