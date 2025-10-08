@@ -4,12 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>TRK Impact Premium — Image premium. Vitesse. Conversion.</title>
-    <meta name="description" content="TRK Impact Premium : sites web haut de gamme orientés conversion. Multilingue FR/EN/AR, dark/light, carrousel témoignages, analytics GA4 + Meta Pixel, déploiement GitHub + Vercel." />
+    <meta
+      name="description"
+      content="TRK Impact Premium : sites web haut de gamme orientés conversion. Multilingue FR/EN/AR, dark/light, carrousel témoignages, analytics GA4 + Meta Pixel, déploiement GitHub + Vercel."
+    />
     <meta name="theme-color" content="#0b0b0b" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="TRK Impact Premium" />
-    <meta property="og:description" content="Image premium. Vitesse. Conversion. Multilingue FR/EN/AR — Déploiement GitHub + Vercel." />
+    <meta
+      property="og:description"
+      content="Image premium. Vitesse. Conversion. Multilingue FR/EN/AR — Déploiement GitHub + Vercel."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://trk-impact-premium.vercel.app/" />
     <meta property="og:image" content="/assets/og-cover.jpg" />
@@ -19,21 +25,23 @@
     <link rel="icon" type="image/png" href="/favicon-trk.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Perf -->
+    <!-- Performance -->
     <link rel="preload" as="image" href="/assets/mockup-3d-home.webp" />
 
     <!-- Preconnects -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
-    <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
 
-    <!-- Google tag (GA4) -->
+    <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQ36GKD2VL"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-WQ36GKD2VL');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-WQ36GKD2VL");
       window.gtag = (...args) => gtag(...args);
     </script>
 
@@ -47,13 +55,16 @@
         if (!f._fbq) f._fbq = n;
         n.push = n;
         n.loaded = true;
-        n.version = '2.0';
+        n.version = "2.0";
         n.queue = [];
-        t = b.createElement(e); t.async = true; t.src = 'https://connect.facebook.net/en_US/fbevents.js';
-        s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
-      })(window, document, 'script');
-      fbq('init', '661574303312332');
-      fbq('track', 'PageView');
+        t = b.createElement(e);
+        t.async = true;
+        t.src = "https://connect.facebook.net/en_US/fbevents.js";
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, "script");
+      fbq("init", "661574303312332");
+      fbq("track", "PageView");
       window.fbq = (...args) => fbq(...args);
     </script>
   </head>
