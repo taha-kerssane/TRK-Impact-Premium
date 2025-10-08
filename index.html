@@ -2,30 +2,40 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TRK Impact — Gestion locative premium à Tanger</title>
-    <meta name="description" content="Agence immobilière haut de gamme à Tanger. Loyer fixe garanti, exploitation courte durée optimisée, conciergerie clé-en-main." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Icons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <title>TRK Impact — Gestion locative premium à Tanger</title>
+    <meta name="description" content="Agence haut de gamme à Tanger : loyer fixe garanti, exploitation courte durée optimisée, gestion clé-en-main, 5★." />
+    <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0f172a" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://trk-impact-premium.vercel.app/" />
+
+    <!-- Favicon / App icons -->
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
 
     <!-- Open Graph / Twitter -->
     <meta property="og:title" content="TRK Impact — Tanger" />
-    <meta property="og:description" content="Loyer fixe garanti, opérations optimisées, 5★ expérience." />
+    <meta property="og:description" content="Loyer fixe garanti, opérations optimisées, expérience 5★." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://trk-impact-premium.vercel.app/" />
-    <meta property="og:image" content="/logo.svg" />
-    <meta property="og:site_name" content="TRK Impact — Tanger" />
+    <meta property="og:image" content="https://trk-impact-premium.vercel.app/actifs/taha.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/logo.svg" />
+    <meta name="twitter:title" content="TRK Impact — Gestion locative premium à Tanger" />
+    <meta name="twitter:description" content="Loyer fixe garanti, gestion clé-en-main, 5★." />
+    <meta name="twitter:image" content="https://trk-impact-premium.vercel.app/actifs/taha.jpg" />
+
+    <!-- Perf -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://connect.facebook.net" />
 
     <!-- GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQ36GKD2VL"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag(){ dataLayer.push(arguments); }
       gtag('js', new Date());
       gtag('config', 'G-WQ36GKD2VL');
     </script>
@@ -33,20 +43,17 @@
     <!-- Meta Pixel -->
     <script>
       !function(f,b,e,v,n,t,s){
-        if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)
-      }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        if(f.fbq) return; n=f.fbq=function(){ n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments) };
+        if(!f._fbq) f._fbq=n; n.push=n; n.loaded=!0; n.version='2.0';
+        n.queue=[]; t=b.createElement(e); t.async=!0; t.src=v;
+        s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s);
+      }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '661574303312332');
       fbq('track', 'PageView');
     </script>
   </head>
-
   <body>
-    <!-- Meta Pixel noscript DOIT être dans le body -->
+    <!-- Noscript Pixel: doit être dans le <body> -->
     <noscript>
       <img height="1" width="1" style="display:none"
            src="https://www.facebook.com/tr?id=661574303312332&ev=PageView&noscript=1" />
