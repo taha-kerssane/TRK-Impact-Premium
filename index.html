@@ -1,49 +1,96 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TRK Impact Premium – Taha Kerssane</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>TRK Impact Premium — Image premium. Vitesse. Conversion.</title>
+    <meta
+      name="description"
+      content="TRK Impact Premium : sites web haut de gamme orientés conversion. Multilingue FR/EN/AR, dark/light, carrousel témoignages, analytics GA4 + Meta Pixel, déploiement GitHub + Vercel."
+    />
+    <meta name="theme-color" content="#0b0b0b" />
 
-    <!-- SEO & Meta -->
-    <meta name="description" content="Site officiel de Taha Kerssane – TRK Impact Premium. Accompagnement stratégique, projets d'investissement et branding haut de gamme." />
-    <meta property="og:title" content="TRK Impact Premium – Taha Kerssane" />
-    <meta property="og:description" content="Accompagnement stratégique, branding et investissements à fort impact." />
-    <meta property="og:image" content="/actifs/og-image.jpg" />
-    <meta name="theme-color" content="#000000" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="TRK Impact Premium" />
+    <meta
+      property="og:description"
+      content="Image premium. Vitesse. Conversion. Multilingue FR/EN/AR — Déploiement GitHub + Vercel."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://trk-impact.vercel.app/" />
+    <meta property="og:image" content="https://trk-impact.vercel.app/assets/mockup-3d-home.webp" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/actifs/favicon.png" />
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon-trk.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/favicon-trk.png" />
+    <link rel="preload" as="image" href="/assets/mockup-3d-home.webp" imagesrcset />
 
-    <!-- Fonts & Styles -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css" />
+    <!-- Preconnects (perf) -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <link rel="preconnect" href="https://connect.facebook.net" />
 
-    <!-- Tracking -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+    <!-- CSS global -->
+    <link rel="stylesheet" href="/src/index.css" />
+
+    <!-- GA4 — remplace G-XXXXXXXXXX par ton ID -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXX');
+      function gtag(){dataLayer.push(arguments);}
     </script>
-
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+    ></script>
     <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', 'XXXXXXXXXX');
-      fbq('track', 'PageView');
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX'); // ← remplace par ton vrai ID GA4
+      window.gtag = (...args) => gtag(...args); // safe export pour App.jsx
     </script>
-  </head>
 
+    <!-- Meta Pixel — remplace PIXEL_ID par ton ID -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = true;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = true;
+        t.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, 'script');
+      fbq('init', 'PIXEL_ID'); // ← remplace par ton vrai Pixel ID
+      fbq('track', 'PageView');
+      window.fbq = (...args) => fbq(...args); // safe export pour App.jsx
+    </script>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1"
+        alt=""
+      />
+    </noscript>
+  </head>
   <body>
+    <noscript>
+      Veuillez activer JavaScript pour utiliser le site TRK Impact Premium.
+    </noscript>
     <div id="root"></div>
+
+    <!-- Entrée React (Vite/CRA). Adapte le chemin si besoin -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
