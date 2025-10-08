@@ -2,23 +2,14 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>TRK Impact Premium — Image premium. Vitesse. Conversion.</title>
-    <meta
-      name="description"
-      content="TRK Impact Premium : sites web haut de gamme orientés conversion. Multilingue FR/EN/AR, dark/light, carrousel témoignages, analytics GA4 + Meta Pixel, déploiement GitHub + Vercel."
-    />
+    <meta name="description" content="TRK Impact Premium : sites web haut de gamme orientés conversion. Multilingue FR/EN/AR, dark/light, carrousel témoignages, analytics GA4 + Meta Pixel, déploiement GitHub + Vercel." />
     <meta name="theme-color" content="#0b0b0b" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="TRK Impact Premium" />
-    <meta
-      property="og:description"
-      content="Image premium. Vitesse. Conversion. Multilingue FR/EN/AR — Déploiement GitHub + Vercel."
-    />
+    <meta property="og:description" content="Image premium. Vitesse. Conversion. Multilingue FR/EN/AR — Déploiement GitHub + Vercel." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://trk-impact.vercel.app/" />
     <meta property="og:image" content="https://trk-impact.vercel.app/assets/mockup-3d-home.webp" />
@@ -29,7 +20,7 @@
     <link rel="apple-touch-icon" href="/favicon-trk.png" />
     <link rel="preload" as="image" href="/assets/mockup-3d-home.webp" imagesrcset />
 
-    <!-- Preconnects (perf) -->
+    <!-- Preconnects -->
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://www.google-analytics.com" />
     <link rel="preconnect" href="https://connect.facebook.net" />
@@ -37,22 +28,17 @@
     <!-- CSS global -->
     <link rel="stylesheet" href="/src/index.css" />
 
-    <!-- GA4 — remplace G-XXXXXXXXXX par ton ID -->
+    <!-- Google tag (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQ36GKD2VL"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-    </script>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-    ></script>
-    <script>
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX'); // ← remplace par ton vrai ID GA4
-      window.gtag = (...args) => gtag(...args); // safe export pour App.jsx
+      gtag('config', 'G-WQ36GKD2VL');
+      window.gtag = (...args) => gtag(...args);
     </script>
 
-    <!-- Meta Pixel — remplace PIXEL_ID par ton ID -->
+    <!-- Meta Pixel -->
     <script>
       !(function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
@@ -64,33 +50,21 @@
         n.loaded = true;
         n.version = '2.0';
         n.queue = [];
-        t = b.createElement(e);
-        t.async = true;
-        t.src = 'https://connect.facebook.net/en_US/fbevents.js';
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
+        t = b.createElement(e); t.async = true; t.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
       })(window, document, 'script');
-      fbq('init', 'PIXEL_ID'); // ← remplace par ton vrai Pixel ID
+      fbq('init', '661574303312332');
       fbq('track', 'PageView');
-      window.fbq = (...args) => fbq(...args); // safe export pour App.jsx
+      window.fbq = (...args) => fbq(...args);
     </script>
     <noscript>
-      <img
-        height="1"
-        width="1"
-        style="display:none"
-        src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1"
-        alt=""
-      />
+      <img height="1" width="1" style="display:none"
+           src="https://www.facebook.com/tr?id=661574303312332&ev=PageView&noscript=1" alt="" />
     </noscript>
   </head>
   <body>
-    <noscript>
-      Veuillez activer JavaScript pour utiliser le site TRK Impact Premium.
-    </noscript>
+    <noscript>Veuillez activer JavaScript pour utiliser le site TRK Impact Premium.</noscript>
     <div id="root"></div>
-
-    <!-- Entrée React (Vite/CRA). Adapte le chemin si besoin -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
