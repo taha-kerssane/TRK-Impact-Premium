@@ -2,12 +2,12 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import TestimonialsCarousel from './components/TestimonialsCarousel.jsx';
 
 // ========================
-// Constantes à personnaliser
+// Constantes TRK Impact Premium
 // ========================
-const DEAL_DECK_PDF = '/assets/TRK-Deal-Deck.pdf'; // ← remplace par le chemin réel du PDF
-const HOMEPAGE_MOCKUP_IMG = '/assets/trk-home-3d.png'; // ← image mockup 3D Canva
-const WHATSAPP_FR = 'https://wa.me/33600000000'; // ← numéro France
-const WHATSAPP_MA = 'https://wa.me/212600000000'; // ← numéro Maroc
+const DEAL_DECK_PDF = 'https://trk-impact.vercel.app/TRK-DealDeck.pdf';
+const HOMEPAGE_MOCKUP_IMG = 'https://trk-impact.vercel.app/assets/mockup-3d-home.webp';
+const WHATSAPP_FR = 'https://wa.me/33651259462?text=Bonjour%20Taha%2C%20je%20souhaite%20échanger%20au%20sujet%20de%20TRK%20Impact%20Premium%20🇫🇷';
+const WHATSAPP_MA = 'https://wa.me/212771348429?text=Salam%20Taha%2C%20je%20souhaite%20plus%20d’infos%20sur%20TRK%20Impact%20Premium%20🇲🇦';
 
 // ========================
 // i18n local minimal (self-contained)
