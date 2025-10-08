@@ -1,100 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
   <head>
-    <!-- Encodage et affichage -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TRK Impact Premium – Taha Kerssane</title>
 
-    <!-- Titre et description -->
-    <title>TRK Impact — Gestion locative premium à Tanger</title>
-    <meta
-      name="description"
-      content="Agence immobilière haut de gamme à Tanger. Loyer fixe garanti, exploitation courte durée optimisée et conciergerie clé-en-main. Gestion premium signée TRK Impact."
-    />
+    <!-- SEO & Meta -->
+    <meta name="description" content="Site officiel de Taha Kerssane – TRK Impact Premium. Accompagnement stratégique, projets d'investissement et branding haut de gamme." />
+    <meta property="og:title" content="TRK Impact Premium – Taha Kerssane" />
+    <meta property="og:description" content="Accompagnement stratégique, branding et investissements à fort impact." />
+    <meta property="og:image" content="/actifs/og-image.jpg" />
+    <meta name="theme-color" content="#000000" />
 
-    <!-- Favicon et icônes -->
-    <link rel="icon" type="image/png" href="/assets/favicon-trk.png" />
-    <link rel="apple-touch-icon" href="/assets/favicon-trk.png" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/actifs/favicon.png" />
 
-    <!-- Couleur du thème navigateur -->
-    <meta name="theme-color" content="#0f172a" />
+    <!-- Fonts & Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
 
-    <!-- Open Graph (partage réseaux sociaux) -->
-    <meta property="og:title" content="TRK Impact — Gestion locative premium à Tanger" />
-    <meta
-      property="og:description"
-      content="Agence immobilière haut de gamme à Tanger. Loyer fixe garanti, exploitation courte durée optimisée, conciergerie clé-en-main."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://trk-impact-premium.vercel.app/" />
-    <meta property="og:image" content="/assets/logo.svg" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="TRK Impact — Tanger" />
-    <meta
-      name="twitter:description"
-      content="Gestion locative haut de gamme à Tanger, sans stress, sans vacance, avec rendement garanti."
-    />
-    <meta name="twitter:image" content="/assets/logo.svg" />
-
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQ36GKD2VL"></script>
+    <!-- Tracking -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-WQ36GKD2VL");
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXX');
     </script>
 
-    <!-- Meta Pixel Facebook -->
     <script>
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod
-            ? n.callMethod.apply(n, arguments)
-            : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = "2.0";
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(
-        window,
-        document,
-        "script",
-        "https://connect.facebook.net/en_US/fbevents.js"
-      );
-      fbq("init", "661574303312332");
-      fbq("track", "PageView");
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', 'XXXXXXXXXX');
+      fbq('track', 'PageView');
     </script>
   </head>
 
   <body>
-    <!-- Noscript obligatoire pour Meta Pixel -->
-    <noscript>
-      <img
-        height="1"
-        width="1"
-        style="display:none"
-        src="https://www.facebook.com/tr?id=661574303312332&ev=PageView&noscript=1"
-        alt="facebook tracking pixel"
-      />
-    </noscript>
-
-    <!-- Racine de l'app React -->
     <div id="root"></div>
-
-    <!-- Script principal React / Vite -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
