@@ -156,8 +156,8 @@ export default function App(){
           </div>
         </div>
         <div className="rounded-2xl overflow-hidden border shadow-xl">
-          {/* PHOTO HERO (corrigée) */}
-          <img src="/actifs/taha.jpg" alt="Taha Kerssane — TRK Impact" className="w-full h-full object-cover"/>
+          {/* PHOTO HERO */}
+          <img src="/assets/taha.jpg" alt="Taha Kerssane — TRK Impact" className="w-full h-full object-cover"/>
         </div>
       </header>
 
@@ -180,6 +180,7 @@ export default function App(){
       <section id="invest">
         <div className="max-w-6xl mx-auto px-5 py-10">
           <h2 className={"text-2xl font-bold mb-4 " + (lang==='ar'?'text-right':'')}>{t.investTitle}</h2>
+
           <div className="grid md:grid-cols-2 gap-4">
             {t.investCards.map(([h,p],i)=>(
               <div key={i} className="card">
@@ -189,18 +190,17 @@ export default function App(){
             ))}
           </div>
 
-          {/* CTA: PDF + Rappel */}
           <div className="mt-4 flex gap-3 flex-wrap">
-            {/* BOUTON PDF (corrigé + tracking) */}
+            {/* BOUTON PDF */}
             <a
               id="dealDeckBtn"
               className="btn btn-primary"
-              href="/actifs/DealDeck-TRK-Impact.pdf?v=2"
+              href="/assets/DealDeck-TRK-Impact.pdf?v=2"
               download="DealDeck-TRK-Impact.pdf"
               rel="noopener"
-              onClick={() => {
-                try { gtag('event','deal_deck_download') } catch(e) {}
-                try { fbq('trackCustom','DealDeckDownload') } catch(e) {}
+              onClick={()=>{
+                try{ gtag('event','deal_deck_download') }catch(e){}
+                try{ fbq('trackCustom','DealDeckDownload') }catch(e){}
               }}
             >
               📄 Télécharger le Deal Deck (PDF)
@@ -229,8 +229,8 @@ export default function App(){
           <div className="card">
             <h3 className="font-bold mb-2">{t.directTitle}</h3>
             <div className="flex gap-3 items-center">
-              {/* QR WHATSAPP (corrigé en .png) */}
-              <img src="/actifs/whatsapp-qr.png" alt="QR WhatsApp Taha" className="w-[120px] h-[120px] rounded-xl border"/>
+              {/* QR WHATSAPP */}
+              <img src="/assets/whatsapp-qr.png" alt="QR WhatsApp Taha" className="w-[120px] h-[120px] rounded-xl border"/>
               <div>
                 <div className="font-extrabold">Taha Kerssane</div>
                 <div className="text-sm text-slate-600">{t.role}</div>
