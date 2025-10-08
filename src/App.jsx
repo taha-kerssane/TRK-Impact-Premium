@@ -1,303 +1,171 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 
-/** ====== i18n ====== */
-const STR = {
-  fr: {
-    brand:"TRK Impact — Tanger",
-    kicker:"Gestion locative premium",
-    heroTitle:"Agence immobilière haut de gamme à Tanger",
-    heroSub:"Loyer fixe garanti, exploitation courte durée optimisée, et expérience 5★ — sans aucun effort pour vous.",
-    ctaOwner:"Je suis propriétaire",
+const App = () => {
+  // Lien CalendBook — Taha Kerssane (15 min)
+  const calendbookUrl =
+    "https://www.calendbook.com/tahakerssane/rendezvousd%C3%A9couverte15min";
 
-    ownersTitle:"Services propriétaires & investisseurs",
-    features:[
-      ["Loyer fixe garanti","Pacte de rendement : revenus mensuels stables, zéro vacance."],
-      ["Exploitation courte durée","Pricing dynamique, shooting pro, annonces optimisées."],
-      ["Gestion 100% clé-en-main","Check-in/out, ménage hôtelier, maintenance, linge."],
-      ["Conformité & assurance","Baux/avenants, règlement de copro, assurance RC."]
-    ],
-
-    investTitle:"Investisseurs — Rendement & sécurité",
-    investCards:[
-      ["Modèle de revenus","• Contrat à loyer fixe garanti<br>• Option indexation ou partage de performance<br>• Durée souple (12–36 mois)"],
-      ["Performance cible","• ADR ≈ 1 400 MAD • Occupation ≈ 55%<br>• Brut ≈ 23 100 MAD<br>• Marge nette ≈ 8 000 MAD"],
-      ["Gestion du risque","• Assurance, conformité copro, check-in autonome<br>• Standards ménage hôtelier & maintenance"],
-      ["Onboarding express","• Audit (48h) • Shooting HDR<br>• Mise en ligne optimisée (Airbnb/Booking)"]
-    ],
-
-    pilotTitle:"Pilote — Résidence Tasnim (TASNIM 01)",
-    pilotBullets:[
-      "F4 • 150 m² • centre-ville • parking • fibre • check-in autonome",
-      "ADR cible : 1 400 MAD • Occupation cible : 55 %",
-      "Revenus bruts ~23 100 MAD • Marge nette ~8 000 MAD • Break-even ~7 nuits"
-    ],
-
-    directTitle:"Contact direct", role:"Chargé de location appartement",
-    ctaWhats:"Parler sur WhatsApp", ctaContact:"Nous contacter", ctaWhats2:"WhatsApp direct",
-
-    contactTitle:"Parlons de votre bien",
-    contactSub:"Exploitons son plein potentiel dès ce mois-ci. Réponse rapide.",
-    contactWhatsApp:"WhatsApp direct",
-
-    footer:"© TRK Impact — Gestion locative premium à Tanger"
-  },
-
-  en: {
-    brand:"TRK Impact — Tangier",
-    kicker:"Premium property management",
-    heroTitle:"High-end real-estate agency in Tangier",
-    heroSub:"Guaranteed fixed rent, optimized short-stay operations and 5-star guest experience — fully hands-off.",
-    ctaOwner:"I’m a landlord",
-    ownersTitle:"Services for landlords & investors",
-    features:[
-      ["Guaranteed fixed rent","Stable monthly income, zero vacancy risk."],
-      ["Short-stay operations","Dynamic pricing, pro shooting, optimized listings."],
-      ["100% hands-off","Check-in/out, hotel-grade cleaning, maintenance, linen."],
-      ["Compliance & insurance","Contracts, HOA rules, liability insurance."]
-    ],
-    investTitle:"Investors — Return & risk control",
-    investCards:[
-      ["Revenue model","• Guaranteed fixed-rent agreement<br>• Optional indexation / performance sharing<br>• Flexible term (12–36 months)"],
-      ["Target performance","• ADR ≈ 1,400 MAD • Occupancy ≈ 55%<br>• Gross ≈ 23,100 MAD<br>• Net ≈ 8,000 MAD"],
-      ["Risk management","• Insurance, HOA compliance, self check-in<br>• Hotel-grade cleaning & maintenance"],
-      ["Fast onboarding","• 48h audit • HDR shooting<br>• Optimized listings (Airbnb/Booking)"]
-    ],
-    pilotTitle:"Pilot — Tasnim Residence (TASNIM 01)",
-    pilotBullets:[
-      "4BR • 150 m² • city center • parking • fiber • self check-in",
-      "Target ADR: 1,400 MAD • Occupancy: 55%",
-      "Gross ~23,100 MAD • Net ~8,000 MAD • Break-even ~7 nights"
-    ],
-    directTitle:"Direct contact", role:"Apartment rental manager",
-    ctaWhats:"Chat on WhatsApp", ctaContact:"Contact us", ctaWhats2:"WhatsApp now",
-    contactTitle:"Let’s talk about your property",
-    contactSub:"We can unlock its full potential this month. Fast response.",
-    contactWhatsApp:"WhatsApp now",
-    footer:"© TRK Impact — Premium rental management in Tangier"
-  },
-
-  ar: {
-    brand:"‏TRK Impact — طنجة",
-    kicker:"إدارة إيجار فاخرة",
-    heroTitle:"وكالة عقارية فاخرة في طنجة",
-    heroSub:"إيجار ثابت مضمون وتشغيل قصير المدى مُحسّن وتجربة ضيوف خمس نجوم — بدون أي جهد منك.",
-    ctaOwner:"أنا مالك العقار",
-    ownersTitle:"خدمات للمالكين والمستثمرين",
-    features:[
-      ["إيجار ثابت مضمون","دخل شهري مستقر بدون شغور."],
-      ["تشغيل قصير المدى","تسعير ديناميكي، تصوير احترافي، تحسين القوائم."],
-      ["إدارة كاملة","تسجيل دخول/خروج، تنظيف فندقي، صيانة وبياضات."],
-      ["امتثال وتأمين","عقود، نظام اتحاد الملاك، تأمين المسؤولية."]
-    ],
-    investTitle:"المستثمرون — عائد وتحكم بالمخاطر",
-    investCards:[
-      ["نموذج الإيرادات","• عقد إيجار ثابت مضمون<br>• فهرسة أو مشاركة أداء اختيارية<br>• مدة مرنة (12–36 شهرًا)"],
-      ["الأداء المستهدف","• ADR ≈ 1400 درهم • إشغال ≈ 55%<br>• إجمالي ≈ 23100 درهم<br>• صافي ≈ 8000 درهم"],
-      ["إدارة المخاطر","• تأمين، امتثال اتحاد الملاك، دخول ذاتي<br>• تنظيف فندقي وصيانة"],
-      ["تشغيل سريع","• تدقيق خلال 48 ساعة • تصوير HDR<br>• قوائم محسنة (Airbnb/Booking)"]
-    ],
-    pilotTitle:"المشروع التجريبي — إقامة تسنيم (TASNIM 01)",
-    pilotBullets:[
-      "4 غرف • 150 م² • وسط المدينة • موقف • ألياف • دخول ذاتي",
-      "متوسط السعر المستهدف: 1400 درهم • إشغال: 55%",
-      "الإيراد الإجمالي ~23100 درهم • الصافي ~8000 درهم • نقطة التعادل ~7 ليالٍ"
-    ],
-    directTitle:"تواصل مباشر", role:"مسؤول تأجير الشقق",
-    ctaWhats:"تواصل عبر واتساب", ctaContact:"اتصل بنا", ctaWhats2:"واتساب مباشر",
-    contactTitle:"دعنا نتحدث عن عقارك",
-    contactSub:"نطلق إمكاناته هذا الشهر. استجابة سريعة.",
-    contactWhatsApp:"واتساب مباشر",
-    footer:"© TRK Impact — إدارة إيجار فاخرة في طنجة"
-  }
-};
-
-const LANGS = ["fr","en","ar"];
-
-export default function App(){
-  const [lang, setLang] = useState("fr");
-  const t = useMemo(()=>STR[lang], [lang]);
-
-  useEffect(()=>{
-    document.documentElement.lang = lang;
-    document.body.classList.toggle("rtl", lang === "ar");
-  },[lang]);
+  const handleCalendbook = () => {
+    try {
+      gtag("event", "calendbook_open");
+      fbq("trackCustom", "CalendBookOpen");
+    } catch (e) {}
+    window.open(calendbookUrl, "_blank", "noopener,noreferrer");
+  };
 
   return (
-    <div className="texture min-h-screen text-slate-800">
-      {/* NAV */}
-      <div className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-[var(--line)]">
-        <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2 font-extrabold text-slate-900">
-            <div className="w-10 h-10 rounded-2xl grid place-items-center text-white font-black"
-                 style={{background:"linear-gradient(135deg,#0f172a,#1f2937)"}}>TRK</div>
-            <span>{t.brand}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            {LANGS.map(l=>(
-              <button key={l}
-                onClick={()=>setLang(l)}
-                className={"px-3 py-1 rounded-xl text-sm " + (lang===l ? "bg-[var(--ink)] text-white" : "border border-[var(--ink)] text-[var(--ink)] hover:bg-slate-50")}>
-                {l.toUpperCase()}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+    <main className="min-h-screen bg-[#fafafa] text-slate-900">
+      {/* --- HERO --- */}
+      <section className="flex flex-col md:flex-row items-center justify-center px-6 py-16 gap-10">
+        <div className="max-w-xl">
+          <h1 className="text-3xl font-extrabold leading-tight">
+            Agence immobilière <br /> haut de gamme à Tanger
+          </h1>
+          <p className="mt-4 text-lg text-gray-600">
+            Loyer fixe garanti, exploitation courte durée optimisée, conciergerie
+            clé-en-main. Une gestion premium, sans aucun effort pour vous.
+          </p>
 
-      {/* HERO */}
-      <header className="max-w-6xl mx-auto px-5 py-12 grid md:grid-cols-2 gap-8 items-center">
-        <div className={lang==='ar'?'text-right':''}>
-          <div className="tracking-[.18em] text-[var(--gold)] font-bold uppercase">{t.kicker}</div>
-          <h1 className="text-5xl font-extrabold leading-tight text-[var(--ink)] mt-1">{t.heroTitle}</h1>
-          <p className="text-lg text-slate-600 mt-3">{t.heroSub}</p>
-          <div className={"mt-5 flex flex-wrap gap-3 " + (lang==='ar'?'justify-end':'')}>
-            <a className="btn btn-primary" href="#owners">{t.ctaOwner}</a>
-            <a className="btn btn-outline" href="https://wa.me/33619642559" target="_blank" rel="noopener">WhatsApp</a>
-          </div>
-        </div>
-        <div className="rounded-2xl overflow-hidden border shadow-xl">
-          {/* PHOTO HERO */}
-          <img src="/assets/taha.jpg" alt="Taha Kerssane — TRK Impact" className="w-full h-full object-cover"/>
-        </div>
-      </header>
-
-      {/* SERVICES */}
-      <section id="owners" className="bg-white border-t border-b border-[var(--line)]">
-        <div className="max-w-6xl mx-auto px-5 py-10">
-          <h2 className={"text-2xl font-bold mb-4 " + (lang==='ar'?'text-right':'')}>{t.ownersTitle}</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {t.features.map(([h,p],i)=>(
-              <div key={i} className="card">
-                <h3 className="font-semibold">{h}</h3>
-                <p className="text-sm text-slate-600 mt-1">{p}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* INVEST */}
-      <section id="invest">
-        <div className="max-w-6xl mx-auto px-5 py-10">
-          <h2 className={"text-2xl font-bold mb-4 " + (lang==='ar'?'text-right':'')}>{t.investTitle}</h2>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            {t.investCards.map(([h,p],i)=>(
-              <div key={i} className="card">
-                <h3 className="font-semibold">{h}</h3>
-                <p className="text-sm text-slate-600 mt-1" dangerouslySetInnerHTML={{__html:p}}/>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-4 flex gap-3 flex-wrap">
-            {/* BOUTON PDF */}
-            <a
-              id="dealDeckBtn"
-              className="btn btn-primary"
-              href="/assets/DealDeck-TRK-Impact.pdf?v=2"
-              download="DealDeck-TRK-Impact.pdf"
-              rel="noopener"
-              onClick={()=>{
-                try{ gtag('event','deal_deck_download') }catch(e){}
-                try{ fbq('trackCustom','DealDeckDownload') }catch(e){}
-              }}
+          <div className="mt-6 flex gap-4">
+            <button
+              className="btn btn-primary px-5 py-2 bg-black text-white rounded-xl hover:bg-gray-800 transition"
+              onClick={handleCalendbook}
             >
-              📄 Télécharger le Deal Deck (PDF)
-            </a>
-
-            <a className="btn btn-contour" href="#contact">
+              📅 Je suis propriétaire
+            </button>
+            <button
+              className="btn btn-outline px-5 py-2 border border-black rounded-xl hover:bg-black hover:text-white transition"
+              onClick={handleCalendbook}
+            >
               Être rappelé
-            </a>
+            </button>
           </div>
+        </div>
+
+        {/* --- PHOTO --- */}
+        <img
+          src="/assets/taha.jpg"
+          alt="Taha Kerssane — TRK Impact"
+          className="w-[280px] h-[360px] object-cover rounded-2xl shadow-lg"
+        />
+      </section>
+
+      {/* --- SERVICES --- */}
+      <section className="px-6 md:px-20 py-12 bg-white">
+        <h2 className="text-2xl font-bold mb-6">Services propriétaires & investisseurs</h2>
+        <div className="grid md:grid-cols-4 gap-6 text-gray-700">
+          <div className="p-4 border rounded-xl">Loyer fixe garanti 💸</div>
+          <div className="p-4 border rounded-xl">Exploitation courte durée 🏙️</div>
+          <div className="p-4 border rounded-xl">Gestion 100 % clé en main 🤝</div>
+          <div className="p-4 border rounded-xl">Conformité & assurance 🧾</div>
         </div>
       </section>
 
-      {/* PILOTE + CONTACT DIRECT */}
-      <section className="border-t border-b border-[var(--line)] bg-white">
-        <div className="max-w-6xl mx-auto px-5 py-10 grid md:grid-cols-2 gap-6 items-start">
-          <div className={lang==='ar'?'text-right':''}>
-            <h3 className="text-xl font-bold">{t.pilotTitle}</h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-700">
-              {t.pilotBullets.map((x,idx)=>(<li key={idx}>• {x}</li>))}
+      {/* --- INVESTISSEURS --- */}
+      <section className="px-6 md:px-20 py-12 bg-gray-50">
+        <h2 className="text-2xl font-bold mb-6">Investisseurs — Rendement & sécurité</h2>
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="border rounded-xl p-6 bg-white">
+            <h3 className="font-semibold mb-2">Modèle de revenus</h3>
+            <p>
+              Capital libre – Loyer garanti – Durée flexible.  
+              Accompagnement fiscal & juridique.
+            </p>
+          </div>
+          <div className="border rounded-xl p-6 bg-white">
+            <h3 className="font-semibold mb-2">Performance cible</h3>
+            <ul className="list-disc list-inside text-sm text-gray-700">
+              <li>ROI : +18 % / an</li>
+              <li>TRK Impact : gestion haut rendement</li>
             </ul>
-            <div className={"mt-4 flex gap-3 " + (lang==='ar'?'justify-end':'')}>
-              <a className="btn btn-primary" href="https://wa.me/33619642559" target="_blank" rel="noopener">{t.ctaWhats}</a>
-              <a className="btn btn-outline" href="#contact">{t.ctaContact}</a>
-            </div>
           </div>
-          <div className="card">
-            <h3 className="font-bold mb-2">{t.directTitle}</h3>
-            <div className="flex gap-3 items-center">
-              {/* QR WHATSAPP */}
-              <img src="/assets/whatsapp-qr.png" alt="QR WhatsApp Taha" className="w-[120px] h-[120px] rounded-xl border"/>
-              <div>
-                <div className="font-extrabold">Taha Kerssane</div>
-                <div className="text-sm text-slate-600">{t.role}</div>
-                <div className="mt-1">📞 +33 6 19 64 25 59</div>
-                <div>✉️ tahakerssanepro@gmail.com</div>
-                <a className="btn btn-primary mt-2 inline-block" href="https://wa.me/33619642559" target="_blank" rel="noopener">{t.ctaWhats2}</a>
-              </div>
-            </div>
-          </div>
+        </div>
+
+        {/* --- Bouton PDF --- */}
+        <div className="mt-8">
+          <a
+            id="dealDeckBtn"
+            className="inline-block px-5 py-3 bg-black text-white rounded-xl hover:bg-gray-800 transition"
+            href="/assets/DealDeck-TRK-Impact.pdf?v=2"
+            download="DealDeck-TRK-Impact.pdf"
+            rel="noopener"
+            onClick={() => {
+              try {
+                gtag("event", "deal_deck_download");
+                fbq("trackCustom", "DealDeckDownload");
+              } catch (e) {}
+            }}
+          >
+            📄 Télécharger le Deal Deck (PDF)
+          </a>
         </div>
       </section>
 
-      {/* CONTACT */}
-      <section id="contact" className="max-w-6xl mx-auto px-5 py-10">
-        <h2 className={"text-2xl font-bold " + (lang==='ar'?'text-right':'')}>{t.contactTitle}</h2>
-        <p className={"text-slate-600 " + (lang==='ar'?'text-right':'')}>{t.contactSub}</p>
-        <a className="btn btn-primary mt-4 inline-block" href="https://wa.me/33619642559" target="_blank" rel="noopener">
-          {t.contactWhatsApp}
-        </a>
+      {/* --- CONTACT --- */}
+      <section className="px-6 md:px-20 py-12 bg-white flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Contact direct</h2>
+          <p className="text-gray-700 mb-3">
+            <strong>Taha Kerssane</strong>  
+            <br />
+            Expert en gestion immobilière & investissement locatif à Tanger.  
+            <br />
+            +212 6 14 25 39 85 · taha.kerssane.pro@gmail.com
+          </p>
+          <button
+            className="btn btn-primary bg-green-600 text-white px-5 py-2 rounded-xl hover:bg-green-700 transition"
+            onClick={() =>
+              window.open("https://wa.me/212614253985", "_blank", "noopener,noreferrer")
+            }
+          >
+            💬 WhatsApp direct
+          </button>
+        </div>
+
+        <img
+          src="/assets/whatsapp-qr.png"
+          alt="QR WhatsApp Taha Kerssane"
+          className="w-[140px] h-[140px] rounded-xl border shadow-sm"
+        />
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t">
-        <div className="max-w-6xl mx-auto px-5 py-6 flex items-center justify-between flex-wrap gap-3">
-          <small>{t.footer}</small>
-          <span className="inline-block px-3 py-1 rounded-full text-white text-xs" style={{background:"#111827"}}>Top 5% service</span>
+      {/* --- BIOGRAPHIE --- */}
+      <section className="px-6 md:px-20 py-12 bg-gray-50">
+        <h2 className="text-2xl font-bold mb-4">À propos de Taha Kerssane</h2>
+        <p className="text-gray-700 leading-relaxed max-w-3xl">
+          Entrepreneur franco-marocain passionné par la performance, Taha Kerssane a bâti son
+          expertise entre la vente, la psychologie du consommateur et l’investissement
+          immobilier.  
+          Après plusieurs années dans la direction commerciale et le développement de
+          solutions haut de gamme, il fonde <strong>TRK Impact</strong> à Tanger : une
+          conciergerie premium qui transforme la gestion locative traditionnelle en
+          expérience rentable, transparente et humaine.  
+          <br />
+          <br />
+          Son approche repose sur trois piliers : la confiance, la rigueur et l’innovation.  
+          Chaque propriétaire est accompagné comme un véritable partenaire : audit, mise en
+          valeur du bien, automatisation des réservations et gestion des revenus.  
+          <br />
+          <br />
+          Avec une vision long terme et des outils digitaux de pointe, TRK Impact s’impose
+          aujourd’hui comme la référence des conciergeries haut de gamme à Tanger.
+        </p>
+
+        <div className="mt-6">
+          <button
+            className="btn btn-primary px-6 py-3 bg-black text-white rounded-xl hover:bg-gray-800 transition"
+            onClick={handleCalendbook}
+          >
+            📅 Prendre rendez-vous avec Taha
+          </button>
         </div>
+      </section>
+
+      <footer className="py-6 text-center text-sm text-gray-500">
+        © 2025 TRK Impact — Gestion locative premium à Tanger
       </footer>
-
-      {/* ===== Bulle WhatsApp (noir & doré) ===== */}
-      <style>{`
-        #trkWhatsAppBtn{
-          position:fixed;bottom:22px;right:22px;background:#0f172a;color:#c6a972;
-          border-radius:50%;width:62px;height:62px;display:flex;align-items:center;justify-content:center;
-          font-size:28px;box-shadow:0 4px 20px rgba(0,0,0,.25);cursor:pointer;transition:.3s;z-index:1000
-        }
-        #trkWhatsAppBtn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(198,169,114,.35)}
-        #trkChatCard{
-          position:fixed;bottom:90px;right:22px;background:#fff;border-radius:16px;padding:16px 18px;width:280px;
-          font-family:Inter,system-ui,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.2);display:none;z-index:1001
-        }
-        #trkChatCard strong{color:#0f172a}
-        #trkChatCard a{display:block;margin-top:8px;background:#0f172a;color:#c6a972;text-align:center;border-radius:10px;padding:10px;font-weight:600}
-        #trkChatCard a:hover{background:#1c243a}
-        #trkChatCard small{display:block;margin-top:10px;color:#666;font-size:13px}
-      `}</style>
-      <div id="trkWhatsAppBtn" title="Parler avec Taha sur WhatsApp" aria-label="Ouvrir la messagerie WhatsApp">💬</div>
-      <div id="trkChatCard" aria-live="polite">
-        <p><strong>💬 Besoin d’une estimation ?</strong><br/>Parlez avec Taha sur WhatsApp :</p>
-        <a href="https://wa.me/33619642559" target="_blank" rel="noopener">🇫🇷 +33 6 19 64 25 59</a>
-        <a href="https://wa.me/212722584276" target="_blank" rel="noopener">🇲🇦 +212 7 22 58 42 76</a>
-        <small>Réponse rapide (8h – 22h) • tahakerssanepro@gmail.com</small>
-      </div>
-      <script dangerouslySetInnerHTML={{__html:`
-        (function(){
-          var btn=document.getElementById('trkWhatsAppBtn');
-          var card=document.getElementById('trkChatCard'); var timer;
-          btn.addEventListener('click',function(){
-            var open=card.style.display==='block';
-            card.style.display=open?'none':'block';
-            clearTimeout(timer);
-            if(!open) timer=setTimeout(function(){card.style.display='none'},9000);
-            try{gtag('event','whatsapp_bubble_click')}catch(e){}
-            try{fbq('trackCustom','WhatsAppBubbleClick')}catch(e){}
-          });
-        })();
-      `}}/>
-    </div>
+    </main>
   );
-}
+};
+
+export default App;
