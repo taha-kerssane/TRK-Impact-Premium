@@ -18,7 +18,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/favicon-trk.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/favicon-trk.png" />
-    <link rel="preload" as="image" href="/assets/mockup-3d-home.webp" imagesrcset />
+    <link rel="preload" as="image" href="/assets/mockup-3d-home.webp" />
 
     <!-- Preconnects -->
     <link rel="preconnect" href="https://www.googletagmanager.com" />
@@ -57,13 +57,17 @@
       fbq('track', 'PageView');
       window.fbq = (...args) => fbq(...args);
     </script>
+  </head>
+
+  <body>
+    <!-- Noscript déplacé ici (⚠️ obligatoire pour éviter l’erreur Vite) -->
     <noscript>
       <img height="1" width="1" style="display:none"
            src="https://www.facebook.com/tr?id=661574303312332&ev=PageView&noscript=1" alt="" />
     </noscript>
-  </head>
-  <body>
+
     <noscript>Veuillez activer JavaScript pour utiliser le site TRK Impact Premium.</noscript>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
