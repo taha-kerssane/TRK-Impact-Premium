@@ -12,23 +12,77 @@ export default function TestimonialsCarousel({
   intervalMs = 4500,
   testimonials: testimonialsProp,
 }) {
-  const content = {
-    fr: [
-      { name: 'Imane B.', role: 'Entrepreneure', quote: 'TRK Impact a transformé notre visibilité. Le site est rapide, premium, et les leads arrivent plus qualifiés.' },
-      { name: 'Yassine M.', role: 'Fondateur TRK Impact', quote: 'On voulait une image haut de gamme, on a eu plus : un funnel propre, suivi analytics et conversions en hausse.' },
-      { name: 'Sara K.', role: 'Consultante', quote: "L’expérience mobile est top. Le carrousel et les animations apportent une vraie crédibilité à la marque." },
-    ],
-    en: [
-      { name: 'Imane B.', role: 'Entrepreneur', quote: 'TRK Impact transformed our visibility. The site feels premium and brings in more qualified leads.' },
-      { name: 'Yassine M.', role: 'TRK Impact Founder', quote: 'We wanted a high-end image and got more: clean funnel, analytics tracking, and higher conversions.' },
-      { name: 'Sara K.', role: 'Consultant', quote: 'Mobile experience is great. The carousel and subtle animations boost the brand’s credibility.' },
-    ],
-    ar: [
-      { name: 'إيمان ب.', role: 'رائدة أعمال', quote: 'TRK Impact رفعت حضورنا الرقمي. الموقع راقٍ وسريع ويجلب عملاء محتملين أكثر جودة.' },
-      { name: 'ياسين م.', role: 'مؤسس TRK Impact', quote: 'أردنا صورة فاخرة وحصلنا على أكثر: قُمع واضح، وتتبع تحليلات، ونسب تحويل أعلى.' },
-      { name: 'سارة ك.', role: 'مستشارة', quote: 'تجربة الهاتف ممتازة. السلايدر والحركات الخفيفة تزيد من مصداقية العلامة.' },
-    ],
-  };
+ const content = {
+  fr: [
+    {
+      name: 'Karim',
+      role: 'Entrepreneur digital',
+      quote:
+        'Grâce à TRK Impact Premium, j’ai complètement transformé ma manière de présenter mes projets. L’image est premium et la vitesse est top.',
+      avatar: '/avatars/Karim.png',
+    },
+    {
+      name: 'Sara',
+      role: 'Directrice marketing',
+      quote:
+        'Une expérience fluide, moderne et haut de gamme. TRK Impact Premium a clairement élevé notre image de marque.',
+      avatar: '/avatars/sara.png',
+    },
+    {
+      name: 'Famille TRK',
+      role: 'Équipe interne',
+      quote:
+        'Nous voulions une vitrine à la hauteur de notre vision : élégante, performante et orientée conversion.',
+      avatar: '/avatars/famille.png',
+    },
+  ],
+  en: [
+    {
+      name: 'Karim',
+      role: 'Digital Entrepreneur',
+      quote:
+        'Thanks to TRK Impact Premium, I completely changed how I showcase my projects. Premium look and excellent speed.',
+      avatar: '/avatars/Karim.png',
+    },
+    {
+      name: 'Sara',
+      role: 'Marketing Director',
+      quote:
+        'A smooth, modern and high-end experience. TRK Impact Premium clearly elevated our brand image.',
+      avatar: '/avatars/sara.png',
+    },
+    {
+      name: 'TRK Family',
+      role: 'Internal Team',
+      quote:
+        'We wanted a showcase worthy of our vision: elegant, efficient, and conversion-focused.',
+      avatar: '/avatars/famille.png',
+    },
+  ],
+  ar: [
+    {
+      name: 'كريم',
+      role: 'رائد أعمال رقمي',
+      quote:
+        'بفضل TRK Impact Premium غيّرت تمامًا طريقة عرض مشاريعي. المظهر فاخر والسرعة ممتازة.',
+      avatar: '/avatars/Karim.png',
+    },
+    {
+      name: 'سارة',
+      role: 'مديرة تسويق',
+      quote:
+        'تجربة سلسة وعصرية وراقية. TRK Impact Premium رفع صورة علامتنا بشكل واضح.',
+      avatar: '/avatars/sara.png',
+    },
+    {
+      name: 'عائلة TRK',
+      role: 'الفريق الداخلي',
+      quote:
+        'أردنا واجهة تليق برؤيتنا: أنيقة وفعّالة ومركّزة على التحويل.',
+      avatar: '/avatars/famille.png',
+    },
+  ],
+};
 
   const testimonials =
     Array.isArray(testimonialsProp) && testimonialsProp.length
