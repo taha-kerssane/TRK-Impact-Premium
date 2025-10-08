@@ -2,15 +2,15 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import TestimonialsCarousel from './components/TestimonialsCarousel.jsx';
 
 // ========================
-// Constantes TRK Impact Premium
+// Constantes TRK Impact Premium (liens réels validés)
 // ========================
 const DEAL_DECK_PDF = 'https://trk-impact.vercel.app/TRK-DealDeck.pdf';
 const HOMEPAGE_MOCKUP_IMG = 'https://trk-impact.vercel.app/assets/mockup-3d-home.webp';
-const WHATSAPP_FR = 'https://wa.me/33651259462?text=Bonjour%20Taha%2C%20je%20souhaite%20échanger%20au%20sujet%20de%20TRK%20Impact%20Premium%20🇫🇷';
-const WHATSAPP_MA = 'https://wa.me/212771348429?text=Salam%20Taha%2C%20je%20souhaite%20plus%20d’infos%20sur%20TRK%20Impact%20Premium%20🇲🇦';
+const WHATSAPP_FR = 'https://wa.me/33651259462?text=Bonjour%20Taha%2C%20je%20souhaite%20%C3%A9changer%20au%20sujet%20de%20TRK%20Impact%20Premium%20%F0%9F%87%AB%F0%9F%87%B7';
+const WHATSAPP_MA = 'https://wa.me/212771348429?text=Salam%20Taha%2C%20je%20souhaite%20plus%20d%E2%80%99infos%20sur%20TRK%20Impact%20Premium%20%F0%9F%87%B2%F0%9F%87%A6';
 
 // ========================
-// i18n local minimal (self-contained)
+// i18n local minimal
 // ========================
 const dict = {
   fr: {
@@ -93,6 +93,27 @@ const dict = {
   },
 };
 
+// --- Tracking unifié GA4 + Meta Pixel ---
+const track = {
+  ga4(name, params = {}) {
+    try {
+      if (typeof window.gtag === 'function') window.gtag('event', name, params);
+    } catch {}
+  },
+  fb(event, params = {}, { standard = false } = {}) {
+    try {
+      if (typeof window.fbq === 'function') {
+        if (standard) window.fbq('track', event, params);
+        else window.fbq('trackCustom', event, params);
+      }
+    } catch {}
+  },
+  both({ gaEvent, gaParams, fbEvent, fbParams, fbStandard = false }) {
+    track.ga4(gaEvent, gaParams);
+    track.fb(fbEvent, fbParams, { standard: fbStandard });
+  },
+};
+
 // ========================
 // Utilitaires
 // ========================
@@ -112,15 +133,6 @@ const getInitialTheme = () => {
   return prefersDark ? 'dark' : 'light';
 };
 
-// Push safe analytics events if gtag/fbq exist
-const trackEvent = (name, params = {}) => {
-  try {
-    if (typeof window.gtag === 'function') window.gtag('event', name, params);
-    if (typeof window.fbq === 'function') window.fbq('trackCustom', name, params);
-  } catch {}
-};
-
-// Intersection Observer for fade-in
 const useFadeIn = () => {
   const ref = useRef(null);
   useEffect(() => {
@@ -143,7 +155,7 @@ const useFadeIn = () => {
 };
 
 // ========================
-// Composant principal
+// App
 // ========================
 export default function App() {
   const [lang, setLang] = useState(getInitialLang);
@@ -153,20 +165,17 @@ export default function App() {
   const animRootRef = useFadeIn();
   const [waOpen, setWaOpen] = useState(false);
 
-  // persist language & direction
   useEffect(() => {
     localStorage.setItem('trk_lang', lang);
     document.documentElement.setAttribute('lang', lang);
     document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
   }, [lang, isRtl]);
 
-  // theme handling
   useEffect(() => {
     localStorage.setItem('trk_theme', theme);
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
-  // close WhatsApp menu on outside click
   useEffect(() => {
     const onClick = (e) => {
       const bubble = document.getElementById('wa-bubble');
@@ -177,8 +186,20 @@ export default function App() {
   }, []);
 
   const onDownloadDeck = () => {
-    trackEvent('deal_deck_download', { lang, theme });
-    // téléchargement en ouvrant le PDF
+    // Standard + custom events
+    track.both({
+      gaEvent: 'file_download',
+      gaParams: { file_name: 'TRK-DealDeck.pdf', file_extension: 'pdf', link_url: DEAL_DECK_PDF, lang, theme },
+      fbEvent: 'ViewContent',
+      fbParams: { content_name: 'DealDeck PDF', content_category: 'asset', lang, theme },
+      fbStandard: true,
+    });
+    track.both({
+      gaEvent: 'deal_deck_download',
+      gaParams: { link_url: DEAL_DECK_PDF, lang, theme },
+      fbEvent: 'deal_deck_download',
+      fbParams: { link_url: DEAL_DECK_PDF, lang, theme },
+    });
     window.open(DEAL_DECK_PDF, '_blank', 'noopener,noreferrer');
   };
 
@@ -201,12 +222,8 @@ export default function App() {
           top: 0,
           zIndex: 50,
           backdropFilter: 'blur(10px)',
-          background:
-            theme === 'dark'
-              ? 'rgba(10,10,10,.6)'
-              : 'rgba(255,255,255,.6)',
-          borderBottom:
-            theme === 'dark' ? '1px solid rgba(241,196,15,.15)' : '1px solid rgba(0,0,0,.06)',
+          background: theme === 'dark' ? 'rgba(10,10,10,.6)' : 'rgba(255,255,255,.6)',
+          borderBottom: theme === 'dark' ? '1px solid rgba(241,196,15,.15)' : '1px solid rgba(0,0,0,.06)',
         }}
       >
         <nav
@@ -224,9 +241,7 @@ export default function App() {
             <div
               aria-hidden
               style={{
-                width: 28,
-                height: 28,
-                borderRadius: 8,
+                width: 28, height: 28, borderRadius: 8,
                 background: 'linear-gradient(135deg,#111 0%,#3a3a3a 100%)',
                 border: '1px solid rgba(241,196,15,.6)',
                 boxShadow: '0 4px 14px rgba(0,0,0,.25)',
@@ -256,7 +271,16 @@ export default function App() {
 
             {/* Theme toggle */}
             <button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              onClick={() => {
+                const next = theme === 'dark' ? 'light' : 'dark';
+                setTheme(next);
+                track.both({
+                  gaEvent: 'theme_change',
+                  gaParams: { theme_before: theme, theme_after: next, lang },
+                  fbEvent: 'theme_change',
+                  fbParams: { theme_before: theme, theme_after: next, lang },
+                });
+              }}
               style={btnGhostStyle}
               aria-label={theme === 'dark' ? t.themeLight : t.themeDark}
               title={theme === 'dark' ? t.themeLight : t.themeDark}
@@ -291,7 +315,14 @@ export default function App() {
                 href={HOMEPAGE_MOCKUP_IMG}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackEvent('mockup_open', { lang })}
+                onClick={() =>
+                  track.both({
+                    gaEvent: 'mockup_open',
+                    gaParams: { lang },
+                    fbEvent: 'mockup_open',
+                    fbParams: { lang },
+                  })
+                }
                 style={btnGhostStyle}
               >
                 {t.mockupTitle}
@@ -326,11 +357,8 @@ export default function App() {
             <div
               aria-hidden
               style={{
-                width: 70,
-                height: 70,
-                borderRadius: '50%',
-                background:
-                  'linear-gradient(135deg, rgba(18,18,18,1) 0%, rgba(44,44,44,1) 100%)',
+                width: 70, height: 70, borderRadius: '50%',
+                background: 'linear-gradient(135deg, rgba(18,18,18,1) 0%, rgba(44,44,44,1) 100%)',
                 border: '1.5px solid rgba(241,196,15,.6)',
                 boxShadow: '0 6px 20px rgba(0,0,0,.35)',
               }}
@@ -349,8 +377,7 @@ export default function App() {
       <footer
         style={{
           padding: '28px 16px',
-          borderTop:
-            theme === 'dark' ? '1px solid rgba(241,196,15,.18)' : '1px solid rgba(0,0,0,.08)',
+          borderTop: theme === 'dark' ? '1px solid rgba(241,196,15,.18)' : '1px solid rgba(0,0,0,.08)',
           textAlign: 'center',
           fontSize: 14,
           opacity: 0.9,
@@ -360,32 +387,17 @@ export default function App() {
       </footer>
 
       {/* WHATSAPP FLOATING BUBBLE */}
-      <div
-        id="wa-bubble"
-        style={{
-          position: 'fixed',
-          right: 18,
-          bottom: 18,
-          zIndex: 60,
-        }}
-      >
+      <div id="wa-bubble" style={{ position: 'fixed', right: 18, bottom: 18, zIndex: 60 }}>
         <button
           onClick={() => setWaOpen((v) => !v)}
           aria-haspopup="menu"
           aria-expanded={waOpen}
           style={{
-            width: 54,
-            height: 54,
-            borderRadius: '50%',
+            width: 54, height: 54, borderRadius: '50%',
             border: '1px solid rgba(241,196,15,.6)',
-            background:
-              'linear-gradient(135deg, rgba(20,20,20,1) 0%, rgba(44,44,44,1) 100%)',
-            color: '#f1c40f',
-            boxShadow: '0 10px 30px rgba(0,0,0,.35)',
-            cursor: 'pointer',
-            fontSize: 26,
-            display: 'grid',
-            placeItems: 'center',
+            background: 'linear-gradient(135deg, rgba(20,20,20,1) 0%, rgba(44,44,44,1) 100%)',
+            color: '#f1c40f', boxShadow: '0 10px 30px rgba(0,0,0,.35)', cursor: 'pointer',
+            fontSize: 26, display: 'grid', placeItems: 'center',
           }}
           title={t.menuWhatsApp}
         >
@@ -396,13 +408,10 @@ export default function App() {
           <div
             role="menu"
             style={{
-              marginTop: 8,
-              borderRadius: 14,
-              overflow: 'hidden',
+              marginTop: 8, borderRadius: 14, overflow: 'hidden',
               border: '1px solid rgba(241,196,15,.35)',
               boxShadow: '0 10px 30px rgba(0,0,0,.35)',
-              background:
-                'linear-gradient(180deg, rgba(18,18,18,.95) 0%, rgba(10,10,10,.95) 100%)',
+              background: 'linear-gradient(180deg, rgba(18,18,18,.95) 0%, rgba(10,10,10,.95) 100%)',
               minWidth: 180,
             }}
           >
@@ -412,7 +421,19 @@ export default function App() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {
-                trackEvent('whatsapp_click', { region: 'FR', lang });
+                track.both({
+                  gaEvent: 'select_content',
+                  gaParams: { content_type: 'whatsapp', content_id: 'whatsapp_fr', region: 'FR', lang, theme },
+                  fbEvent: 'Contact',
+                  fbParams: { method: 'whatsapp', region: 'FR', lang, theme },
+                  fbStandard: true,
+                });
+                track.both({
+                  gaEvent: 'whatsapp_click',
+                  gaParams: { region: 'FR', lang, theme },
+                  fbEvent: 'whatsapp_click',
+                  fbParams: { region: 'FR', lang, theme },
+                });
                 setWaOpen(false);
               }}
               style={waItemStyle}
@@ -425,7 +446,19 @@ export default function App() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {
-                trackEvent('whatsapp_click', { region: 'MA', lang });
+                track.both({
+                  gaEvent: 'select_content',
+                  gaParams: { content_type: 'whatsapp', content_id: 'whatsapp_ma', region: 'MA', lang, theme },
+                  fbEvent: 'Contact',
+                  fbParams: { method: 'whatsapp', region: 'MA', lang, theme },
+                  fbStandard: true,
+                });
+                track.both({
+                  gaEvent: 'whatsapp_click',
+                  gaParams: { region: 'MA', lang, theme },
+                  fbEvent: 'whatsapp_click',
+                  fbParams: { region: 'MA', lang, theme },
+                });
                 setWaOpen(false);
               }}
               style={{ ...waItemStyle, borderTop: '1px solid rgba(241,196,15,.18)' }}
@@ -436,115 +469,48 @@ export default function App() {
         )}
       </div>
 
-      {/* Styles utilitaires (classes minimalistes) */}
       <style>{cssHelpers}</style>
     </div>
   );
 }
 
-// ========================
-// Styles inline réutilisables
-// ========================
+// Styles
 const btnPrimaryStyle = {
   padding: '10px 14px',
   borderRadius: 12,
   border: '1px solid rgba(241,196,15,.6)',
-  background:
-    'linear-gradient(135deg, rgba(28,28,28,1) 0%, rgba(50,50,50,1) 100%)',
-  color: '#f1c40f',
-  fontWeight: 700,
-  boxShadow: '0 6px 16px rgba(0,0,0,.35)',
-  cursor: 'pointer',
+  background: 'linear-gradient(135deg, rgba(28,28,28,1) 0%, rgba(50,50,50,1) 100%)',
+  color: '#f1c40f', fontWeight: 700, boxShadow: '0 6px 16px rgba(0,0,0,.35)', cursor: 'pointer',
 };
-
 const btnGhostStyle = {
   padding: '10px 14px',
   borderRadius: 12,
   border: '1px solid rgba(241,196,15,.35)',
-  background: 'transparent',
-  color: '#f1c40f',
-  fontWeight: 600,
-  cursor: 'pointer',
+  background: 'transparent', color: '#f1c40f', fontWeight: 600, cursor: 'pointer',
 };
-
 const cardHeroStyle = {
-  display: 'grid',
-  alignItems: 'center',
-  minHeight: 240,
-  borderRadius: 18,
-  padding: 24,
-  background:
-    'linear-gradient(180deg, rgba(20,20,20,.92) 0%, rgba(10,10,10,.92) 100%)',
-  border: '1px solid rgba(241,196,15,.20)',
-  boxShadow: '0 12px 40px rgba(0,0,0,.35)',
+  display: 'grid', alignItems: 'center', minHeight: 240, borderRadius: 18, padding: 24,
+  background: 'linear-gradient(180deg, rgba(20,20,20,.92) 0%, rgba(10,10,10,.92) 100%)',
+  border: '1px solid rgba(241,196,15,.20)', boxShadow: '0 12px 40px rgba(0,0,0,.35)',
 };
-
-const sectionStyle = {
-  marginTop: 26,
-};
-
-const h2Style = {
-  margin: '0 0 12px 0',
-  fontSize: 26,
-};
-
-const featuresListStyle = {
-  listStyle: 'none',
-  padding: 0,
-  margin: 0,
-  display: 'grid',
-  gap: 10,
-};
-
+const sectionStyle = { marginTop: 26 };
+const h2Style = { margin: '0 0 12px 0', fontSize: 26 };
+const featuresListStyle = { listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 10 };
 const featureItemStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: 10,
-  padding: '12px 14px',
-  borderRadius: 14,
+  display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', borderRadius: 14,
   border: '1px solid rgba(241,196,15,.18)',
-  background:
-    'linear-gradient(180deg, rgba(22,22,22,.85) 0%, rgba(12,12,12,.85) 100%)',
+  background: 'linear-gradient(180deg, rgba(22,22,22,.85) 0%, rgba(12,12,12,.85) 100%)',
 };
-
 const bioCardStyle = {
-  display: 'grid',
-  gridTemplateColumns: '70px 1fr',
-  gap: 14,
-  alignItems: 'center',
-  padding: 16,
-  borderRadius: 14,
+  display: 'grid', gridTemplateColumns: '70px 1fr', gap: 14, alignItems: 'center',
+  padding: 16, borderRadius: 14,
   border: '1px solid rgba(241,196,15,.18)',
-  background:
-    'linear-gradient(180deg, rgba(22,22,22,.85) 0%, rgba(12,12,12,.85) 100%)',
+  background: 'linear-gradient(180deg, rgba(22,22,22,.85) 0%, rgba(12,12,12,.85) 100%)',
 };
-
-const waItemStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: 8,
-  color: '#f1c40f',
-  textDecoration: 'none',
-  padding: '12px 14px',
-};
-
-// CSS helpers (fade-in + dark class safety)
+const waItemStyle = { display: 'flex', alignItems: 'center', gap: 8, color: '#f1c40f', textDecoration: 'none', padding: '12px 14px' };
 const cssHelpers = `
-  .fade-in-visible {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-  }
-  [data-animate="fade"] {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity .6s ease, transform .6s ease;
-  }
-
-  /* Body dark class if used globally */
-  :root.dark body { background: #0b0b0b; }
-
-  /* Responsive tweaks */
-  @media (max-width: 640px) {
-    h1 { font-size: 30px !important; }
-  }
+  .fade-in-visible{opacity:1!important;transform:translateY(0)!important;}
+  [data-animate="fade"]{opacity:0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease;}
+  :root.dark body { background:#0b0b0b; }
+  @media (max-width:640px){ h1{font-size:30px!important;} }
 `;
