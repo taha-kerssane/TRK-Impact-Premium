@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import TestimonialsCarousel from './components/TestimonialsCarousel';
+import TestimonialsCarousel from './components/TestimonialsCarousel.jsx';
 import Footer from './components/Footer';
 import Bio from './components/Bio';
 import './styles.css';
