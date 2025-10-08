@@ -238,13 +238,18 @@ export default function App() {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div
-              aria-hidden
+            {/* Remplacement du carré décoratif par le logo TRK */}
+            <img
+              src="/assets/logo-trk.svg"
+              alt="Logo TRK Impact Premium"
               style={{
-                width: 28, height: 28, borderRadius: 8,
-                background: 'linear-gradient(135deg,#111 0%,#3a3a3a 100%)',
+                width: 28,
+                height: 28,
+                objectFit: 'contain',
+                borderRadius: 8,
                 border: '1px solid rgba(241,196,15,.6)',
                 boxShadow: '0 4px 14px rgba(0,0,0,.25)',
+                background: 'transparent'
               }}
             />
             <strong style={{ letterSpacing: '.3px' }}>{t.brand}</strong>
