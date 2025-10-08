@@ -2,10 +2,8 @@
 User-agent: *
 Allow: /
 
-# Évite l’indexation des sources de dev (si jamais exposées)
 Disallow: /src/
 Disallow: /node_modules/
 Disallow: /vite.svg
 
-# Indique le sitemap
 Sitemap: https://trk-impact.vercel.app/sitemap.xml
