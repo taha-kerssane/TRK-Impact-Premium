@@ -11,19 +11,21 @@
     <meta property="og:title" content="TRK Impact Premium" />
     <meta property="og:description" content="Image premium. Vitesse. Conversion. Multilingue FR/EN/AR — Déploiement GitHub + Vercel." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://trk-impact.vercel.app/" />
+    <meta property="og:url" content="https://trk-impact-premium.vercel.app/" />
     <meta property="og:image" content="/assets/og-cover.jpg" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/favicon-trk.png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/favicon-trk.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Perf -->
     <link rel="preload" as="image" href="/assets/mockup-3d-home.webp" />
 
     <!-- Preconnects -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="preconnect" href="https://www.google-analytics.com" />
-    <link rel="preconnect" href="https://connect.facebook.net" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
 
     <!-- CSS global -->
     <link rel="stylesheet" href="/src/index.css" />
@@ -60,10 +62,15 @@
   </head>
 
   <body>
-    <!-- Noscript déplacé ici (⚠️ obligatoire pour éviter l’erreur Vite) -->
+    <!-- Noscript DOIT être dans le body -->
     <noscript>
-      <img height="1" width="1" style="display:none"
-           src="https://www.facebook.com/tr?id=661574303312332&ev=PageView&noscript=1" alt="" />
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=661574303312332&ev=PageView&noscript=1"
+        alt=""
+      />
     </noscript>
 
     <noscript>Veuillez activer JavaScript pour utiliser le site TRK Impact Premium.</noscript>
