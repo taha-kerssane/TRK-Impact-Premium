@@ -1,127 +1,83 @@
 /* =========================================================
-   TRK Impact Premium — index.css
-   Thème noir-or premium + base responsive + RTL ready
-   Police: Manrope (chargée via index.html)
+   TRK Impact Premium — index.css FINAL
+   Thèmes noir-or & clair-or + base responsive + RTL ready
+   Police: Manrope (via index.html)
    ========================================================= */
 
-/* ---------- Reset & Base ---------- */
+/* Reset & Base */
 *,
 *::before,
 *::after { box-sizing: border-box; }
-
 html, body, #root { height: 100%; }
-
 body {
   margin: 0;
   font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
   letter-spacing: 0.1px;
 }
-
-/* Liens par défaut */
 a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: none; }
-
-/* Images */
 img { max-width: 100%; height: auto; display: block; }
-
-/* Sélection texte */
 ::selection { background: rgba(241,196,15,.25); color: #fff; }
 
-/* Scrollbar légère (WebKit) */
+/* Scrollbar (WebKit) */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-thumb { background: rgba(241,196,15,.35); border-radius: 8px; }
 ::-webkit-scrollbar-track { background: rgba(0,0,0,.15); }
 
-/* ---------- Thème ---------- */
+/* Thèmes */
 :root {
-  --bg-1: #0b0b0b;
-  --bg-2: #121212;
-  --text-1: #f5f5f5;
-  --text-2: #bdbdbd;
-  --gold: #f1c40f;
-  --gold-2: #c9a216;
-  --line: rgba(241,196,15,.20);
-  --line-soft: rgba(241,196,15,.12);
-  --card-1: rgba(20,20,20,.92);
-  --card-2: rgba(10,10,10,.92);
-  --shadow-1: 0 12px 40px rgba(0,0,0,.35);
-  --shadow-2: 0 6px 20px rgba(0,0,0,.35);
+  --bg-1: #0b0b0b; --bg-2: #121212;
+  --text-1: #f5f5f5; --text-2: #bdbdbd;
+  --gold: #f1c40f; --gold-2: #c9a216;
+  --line: rgba(241,196,15,.20); --line-soft: rgba(241,196,15,.12);
+  --card-1: rgba(20,20,20,.92); --card-2: rgba(10,10,10,.92);
+  --shadow-1: 0 12px 40px rgba(0,0,0,.35); --shadow-2: 0 6px 20px rgba(0,0,0,.35);
 }
 
-/* Mode sombre/clair (le JS ajoute .dark sur <html>) */
 :root.dark body {
   background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
   color: var(--text-1);
 }
 :root:not(.dark) body {
-  background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
   color: #161616;
 }
 
-/* Header translucide (bordure douce en clair/sombre) */
-header {
-  backdrop-filter: blur(10px);
-}
-
-/* ---------- Typo Responsive ---------- */
+/* Typo Responsive */
 h1, h2, h3, h4 { margin: 0; }
 h1 { font-weight: 800; line-height: 1.12; letter-spacing: .2px; }
 h2 { font-weight: 800; line-height: 1.18; }
-
-@media (max-width: 960px) {
-  h1 { font-size: 32px; }
-  h2 { font-size: 24px; }
-}
-@media (min-width: 961px) {
-  h1 { font-size: 40px; }
-  h2 { font-size: 28px; }
-}
-
+@media (max-width: 960px){ h1{font-size:32px;} h2{font-size:24px;} }
+@media (min-width: 961px){ h1{font-size:40px;} h2{font-size:28px;} }
 p { margin: 0; color: var(--text-2); }
 
-/* ---------- Utilitaires Layout ---------- */
+/* Layout utils */
 .container { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
-.stack-8  > * + * { margin-top: 8px; }
-.stack-12 > * + * { margin-top: 12px; }
+.section { margin-top: 50px; }
+.section.center { text-align: center; }
 .stack-16 > * + * { margin-top: 16px; }
-.stack-24 > * + * { margin-top: 24px; }
-
 .grid-2 { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; }
 @media (max-width: 900px){ .grid-2{ grid-template-columns: 1fr; gap: 18px; } }
 
-/* ---------- Cartes & Sections ---------- */
+/* Cards, Hero, Buttons */
 .card {
-  border-radius: 18px;
+  border-radius: 18px; padding: 24px;
   background: linear-gradient(180deg, var(--card-1) 0%, var(--card-2) 100%);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-1);
-  padding: 24px;
+  border: 1px solid var(--line); box-shadow: var(--shadow-1);
 }
-
-.section { margin-top: 50px; }
-.section.center { text-align: center; }
-
-/* Hero visuel */
 .hero-visual {
-  border-radius: 16px;
-  overflow: hidden;
+  border-radius: 16px; overflow: hidden;
   border: 1px solid var(--line-soft);
-  background: #0f0f0f;
-  box-shadow: var(--shadow-1);
-  display: grid;
-  place-items: center;
+  background: #0f0f0f; box-shadow: var(--shadow-1);
+  display: grid; place-items: center;
 }
-
-/* ---------- Boutons (si on leur ajoute des classes plus tard) ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   padding: 10px 16px; border-radius: 12px; font-weight: 700; cursor: pointer;
   transition: transform .08s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
 }
 .btn:active { transform: translateY(1px); }
-
 .btn-primary {
   border: 1px solid rgba(241,196,15,.6);
   background: linear-gradient(135deg,#1c1c1c,#3a3a3a);
@@ -129,30 +85,20 @@ p { margin: 0; color: var(--text-2); }
   box-shadow: var(--shadow-2);
 }
 .btn-primary:hover { border-color: rgba(241,196,15,.8); box-shadow: 0 10px 26px rgba(0,0,0,.38); }
-
 .btn-ghost {
-  border: 1px solid rgba(241,196,15,.35);
-  background: transparent;
-  color: var(--gold);
-  font-weight: 600;
+  border: 1px solid rgba(241,196,15,.35); background: transparent; color: var(--gold); font-weight: 600;
 }
 .btn-ghost:hover { border-color: rgba(241,196,15,.55); }
 
-/* Sélecteurs / inputs */
+/* Select */
 select {
-  appearance: none;
-  background: transparent;
-  color: inherit;
-  padding: 6px 10px;
-  border-radius: 10px;
-  border: 1px solid rgba(241,196,15,.45);
+  appearance: none; background: transparent; color: inherit;
+  padding: 6px 10px; border-radius: 10px; border: 1px solid rgba(241,196,15,.45);
 }
 select:focus { outline: none; box-shadow: 0 0 0 3px rgba(241,196,15,.18); }
 
-/* ---------- Icônes plateformes ---------- */
-.platforms {
-  display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap;
-}
+/* Plateformes */
+.platforms { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; }
 .platforms img {
   width: 64px; height: 64px;
   filter: drop-shadow(0 0 6px rgba(241,196,15,.35));
@@ -160,34 +106,25 @@ select:focus { outline: none; box-shadow: 0 0 0 3px rgba(241,196,15,.18); }
 }
 .platforms img:hover { transform: translateY(-2px) scale(1.03); filter: drop-shadow(0 0 10px rgba(241,196,15,.55)); }
 
-/* ---------- Avatars ---------- */
+/* Avatars */
 .avatar {
   width: 70px; height: 70px; border-radius: 50%;
   border: 2px solid rgba(241,196,15,.5);
-  box-shadow: var(--shadow-2);
-  object-fit: cover;
+  box-shadow: var(--shadow-2); object-fit: cover;
 }
 
-/* ---------- Fade In (hook useFadeIn) ---------- */
-[data-animate="fade"] {
-  opacity: 0; transform: translateY(10px);
-  transition: opacity .6s ease, transform .6s ease;
-}
-.fade-in-visible { opacity: 1 !important; transform: translateY(0) !important; }
+/* FadeIn */
+[data-animate="fade"]{ opacity:0; transform:translateY(10px); transition:opacity .6s, transform .6s; }
+.fade-in-visible{ opacity:1!important; transform:translateY(0)!important; }
 
-/* ---------- RTL support ---------- */
+/* RTL */
 :root[dir="rtl"] body { direction: rtl; }
 :root[dir="rtl"] .platforms { direction: rtl; }
 
-/* ---------- Footer ---------- */
-footer {
-  text-align: center;
-  border-top: 1px solid var(--line-soft);
-}
+/* Footer */
+footer { text-align: center; border-top: 1px solid var(--line-soft); }
 footer small { color: var(--text-2); }
 
-/* ---------- WhatsApp bubble ---------- */
-#wa-bubble button:hover {
-  box-shadow: 0 12px 28px rgba(0,0,0,.42);
-}
+/* WhatsApp bubble */
+#wa-bubble button:hover { box-shadow: 0 12px 28px rgba(0,0,0,.42); }
 #wa-bubble a { color: var(--gold); }
