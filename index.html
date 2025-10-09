@@ -1,89 +1,58 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>TRK Impact Premium — Image premium. Vitesse. Conversion.</title>
-    <meta
-      name="description"
-      content="TRK Impact Premium : sites web haut de gamme orientés conversion. Multilingue FR/EN/AR, dark/light, carrousel témoignages, analytics GA4 + Meta Pixel, déploiement GitHub + Vercel."
-    />
+    <title>TRK Impact Premium — Gestion locative clé en main (Airbnb, Booking, Abritel)</title>
+    <meta name="description" content="Gestion locative premium pour propriétaires exigeants. +22% de revenus en moyenne, 78–90% d’occupation. Service 7j/7, tarification dynamique, ménage hôtelier, reporting mensuel." />
     <meta name="theme-color" content="#0b0b0b" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="TRK Impact Premium" />
-    <meta
-      property="og:description"
-      content="Image premium. Vitesse. Conversion. Multilingue FR/EN/AR — Déploiement GitHub + Vercel."
-    />
+    <meta property="og:title" content="TRK Impact Premium — Gestion locative clé en main" />
+    <meta property="og:description" content="Maximisez vos revenus locatifs sans charge mentale. Airbnb, Booking, Abritel. Service premium, résultats mesurables." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://trk-impact-premium.vercel.app/" />
     <meta property="og:image" content="/assets/og-cover.jpg" />
 
     <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/favicon-trk.png" sizes="32x32" />
+    <link rel="icon" href="/favicon-trk.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Performance -->
-    <link rel="preload" as="image" href="/assets/mockup-3d-home.webp" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Preconnects -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
-    <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
+    <!-- Preload hero image -->
+    <link rel="preload" as="image" href="/assets/mockup-3d-home.webp" />
 
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQ36GKD2VL"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-WQ36GKD2VL");
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date()); gtag('config', 'G-WQ36GKD2VL');
       window.gtag = (...args) => gtag(...args);
     </script>
 
     <!-- Meta Pixel -->
     <script>
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = true;
-        n.version = "2.0";
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = true;
-        t.src = "https://connect.facebook.net/en_US/fbevents.js";
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(window, document, "script");
-      fbq("init", "661574303312332");
-      fbq("track", "PageView");
+      !(function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src='https://connect.facebook.net/en_US/fbevents.js';s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)})(window,document,'script');
+      fbq('init','661574303312332'); fbq('track','PageView');
       window.fbq = (...args) => fbq(...args);
     </script>
   </head>
 
   <body>
-    <!-- Noscript DOIT être dans le body -->
+    <!-- Noscript Meta Pixel doit être dans le body -->
     <noscript>
-      <img
-        height="1"
-        width="1"
-        style="display:none"
-        src="https://www.facebook.com/tr?id=661574303312332&ev=PageView&noscript=1"
-        alt=""
-      />
+      <img height="1" width="1" style="display:none"
+           src="https://www.facebook.com/tr?id=661574303312332&ev=PageView&noscript=1" alt=""/>
     </noscript>
-
-    <noscript>Veuillez activer JavaScript pour utiliser le site TRK Impact Premium.</noscript>
 
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
