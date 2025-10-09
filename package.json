@@ -2,6 +2,7 @@
   "name": "trk-impact-premium",
   "version": "1.0.0",
   "private": true,
+  "description": "TRK Impact Premium — site vitrine FR/EN/AR, thème noir-or / clair-or, témoignages, analytics GA4 + Meta Pixel, déployé via Vercel.",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,7 +17,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^3.4.13",
     "vite": "^5.4.10"
   }
 }
