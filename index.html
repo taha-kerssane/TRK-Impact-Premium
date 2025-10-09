@@ -1,60 +1,70 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>TRK Impact Premium — Gestion locative clé en main (Airbnb, Booking, Abritel)</title>
-    <meta name="description" content="Gestion locative premium pour propriétaires exigeants. +22% de revenus en moyenne, 78–90% d’occupation. Service 7j/7, tarification dynamique, ménage hôtelier, reporting mensuel." />
-    <meta name="theme-color" content="#0b0b0b" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="TRK Impact Premium — Gestion locative clé en main pour propriétaires exigeants. Optimisation de revenus via Airbnb, Booking et Abritel." />
+    <meta name="theme-color" content="#f1c40f" />
+    <meta name="robots" content="index, follow" />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="TRK Impact Premium — Gestion locative clé en main" />
-    <meta property="og:description" content="Maximisez vos revenus locatifs sans charge mentale. Airbnb, Booking, Abritel. Service premium, résultats mesurables." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://trk-impact-premium.vercel.app/" />
-    <meta property="og:image" content="/assets/og-cover.jpg" />
+    <title>TRK Impact Premium | Gestion locative clé en main</title>
+    <link rel="icon" type="image/png" href="/favicon-trk.png" />
 
-    <!-- Favicons -->
-    <link rel="icon" href="/favicon-trk.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Canonical + hreflang -->
+    <link rel="canonical" href="https://trk-impact-premium.vercel.app/">
+    <link rel="alternate" href="https://trk-impact-premium.vercel.app/" hreflang="fr">
+    <link rel="alternate" href="https://trk-impact-premium.vercel.app/?lang=en" hreflang="en">
+    <link rel="alternate" href="https://trk-impact-premium.vercel.app/?lang=ar" hreflang="ar">
+    <link rel="alternate" href="https://trk-impact-premium.vercel.app/" hreflang="x-default">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Preload hero image -->
-    <link rel="preload" as="image" href="/assets/mockup-3d-home.webp" />
-
-    <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQ36GKD2VL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date()); gtag('config', 'G-WQ36GKD2VL');
-      window.gtag = (...args) => gtag(...args);
+    <!-- JSON-LD ProfessionalService -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "TRK Impact Premium",
+      "url": "https://trk-impact-premium.vercel.app/",
+      "logo": "https://trk-impact-premium.vercel.app/assets/logo-trk.svg",
+      "image": "https://trk-impact-premium.vercel.app/assets/og-cover.jpg",
+      "description": "Gestion locative clé en main pour propriétaires exigeants. Optimisation des revenus via Airbnb, Booking et Abritel.",
+      "areaServed": ["FR", "MA"],
+      "availableLanguage": ["fr","en","ar"],
+      "sameAs": [
+        "https://wa.me/33619642559",
+        "https://wa.me/212722584276",
+        "https://www.calendbook.com/tahakerssane/rendezvousdécouverte15min"
+      ],
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://wa.me/33619642559",
+        "availableLanguage": ["fr","en","ar"]
+      }]
+    }
     </script>
 
-    <!-- Meta Pixel -->
-    <script>
-      !(function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src='https://connect.facebook.net/en_US/fbevents.js';s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)})(window,document,'script');
-      fbq('init','661574303312332'); fbq('track','PageView');
-      window.fbq = (...args) => fbq(...args);
+    <!-- JSON-LD FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"Est-ce compatible avec mon bail ?",
+         "acceptedAnswer":{"@type":"Answer","text":"Nous validons la conformité (bail, copropriété) et proposons un montage licite adapté (mandat de gestion meublée courte durée)."}},
+        {"@type":"Question","name":"Quels frais et quel engagement ?",
+         "acceptedAnswer":{"@type":"Answer","text":"Rémunération au résultat + frais transparents, sans engagement long. Résiliation possible avec court préavis."}},
+        {"@type":"Question","name":"Puis-je bloquer des dates ?",
+         "acceptedAnswer":{"@type":"Answer","text":"Oui, vous gardez la main sur le calendrier (usage personnel, travaux). Nous ajustons ménage et check-in/out."}},
+        {"@type":"Question","name":"Comment se passe la mise en route ?",
+         "acceptedAnswer":{"@type":"Answer","text":"Audit, préparation, photos premium, annonces optimisées, synchronisation multi-plateformes, puis lancement accompagné."}}
+      ]
+    }
     </script>
+
+    <script type="module" src="/src/main.jsx"></script>
   </head>
 
   <body>
-    <!-- Noscript Meta Pixel doit être dans le body -->
-    <noscript>
-      <img height="1" width="1" style="display:none"
-           src="https://www.facebook.com/tr?id=661574303312332&ev=PageView&noscript=1" alt=""/>
-    </noscript>
-
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
