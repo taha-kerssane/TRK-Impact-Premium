@@ -1,9 +1,5 @@
-# TRK Impact Premium — robots.txt
+# robots.txt — TRK Impact Premium
 User-agent: *
 Allow: /
 
-Disallow: /src/
-Disallow: /node_modules/
-Disallow: /vite.svg
-
-Sitemap: https://trk-impact.vercel.app/sitemap.xml
+Sitemap: https://trk-impact-premium.vercel.app/sitemap.xml
