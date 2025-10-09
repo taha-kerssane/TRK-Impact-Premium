@@ -1,13 +1,16 @@
-# TRK Impact Premium — README
-[![Vercel Deploy](https://therealsujitk-vercel-badge.vercel.app/?app=trk-impact&style=for-the-badge&logo=vercel)](https://trk-impact.vercel.app)
-[![React 18](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-Project-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
-[![License](https://img.shields.io/badge/Licence-TRK%20Impact%20Premium-gold?style=for-the-badge)](https://trk-impact.vercel.app)
+# TRK Impact Premium
 
-Image premium. Vitesse. Conversion.  
-Stack : **React 18 + Vite + Vercel** | Multilingue **FR/EN/AR** | **Dark/Light** | Carrousel Témoignages | **GA4 + Meta Pixel** | SEO (robots + sitemap)
+Site vitrine premium orienté conversion (FR/EN/AR), thème noir-or / clair-or, carrousel de témoignages, GA4 + Meta Pixel, déploiement Vite + Vercel.
 
----
+## Pile technique
+- **Vite + React 18**
+- **CSS custom** (+ Tailwind prêt si besoin)
+- **i18n minimal** (FR par défaut, EN, AR + RTL)
+- **GA4** (`G-WQ36GKD2VL`) + **Meta Pixel** (`661574303312332`)
+- **Hébergement** : Vercel
 
-## 1) Arborescence
-
+## Démarrage local
+```bash
+npm install
+npm run dev
+# http://localhost:5173
